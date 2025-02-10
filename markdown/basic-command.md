@@ -77,3 +77,8 @@ e.g.
 - terminal clear 하는 방법? 
 : clear라고 쓰기 혹은 CTRL+L
 - History 기능이 있으므로, 방향기 위 키로 내가 이전에 터미널에서 입력한 코드 불러올 수 있음. 
+
+### Git에 업로드 하기 
+`git init` 이라는 명령어로 .git 폴더를 만듦. 
+`git add .` - add랑 . 은 띄어쓰기 해야함. (.은 현재 폴더를 의미함.) = ADD하고 COMMIT 할 것 이다. `git commit -m "내용" 
+=> git config --global user.email "you@example.com" 으로 A uthor
