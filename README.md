@@ -7,3 +7,5 @@ TIL(Today I Learned)
 
 - linux
 - markdown
+
+=> 코드가 바뀔 때 마다, 저장 - add - commit 을 거침. 

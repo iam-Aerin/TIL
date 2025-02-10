@@ -81,4 +81,6 @@ e.g.
 ### Git에 업로드 하기 
 `git init` 이라는 명령어로 .git 폴더를 만듦. 
 `git add .` - add랑 . 은 띄어쓰기 해야함. (.은 현재 폴더를 의미함.) = ADD하고 COMMIT 할 것 이다. `git commit -m "내용" 
-=> git config --global user.email "you@example.com" 으로 A uthor
+=> git config --global user.email "you@example.com" 으로 Author
+
+[출처](https://docs.github.com/ko/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
