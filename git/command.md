@@ -32,5 +32,28 @@ git add . => 현재 나의 위치를 기준으로 모든 파일과 폴더를 의
 ```
 
 ## `git commit`
-- staging area에 있는 변경사항을 커밋하여 스냅샹을 생성하는 것. 
+- staging area에 있는 변경사항`을 커밋하여 스냅샹을 생성하는 것. 
 
+## `git log`
+- 커밋의 히스토리를 조회
+- 사진들의 목록을 보는 명령어
+    - option
+        - `--oneline`: 한눈에 보기 좋게 결과를 불러옴.
+        - `--graph` : 커밋들에 하나하나의 선을 달아서 보여줌. - 흐름을 보기 좋게 보여줌. 
+
+## `git remote`
+- 원격저장소 관리 명령어
+(`git remote -v` 로는 더 자세한 url 정보까지 확인 가능함.)
+
+- 원격 저장소 추가
+    - 일반적으로 remote_name은 `origin` 사용
+ ```
+git remote add {remote_name} {remote url}
+```
+    - git remote add <단축이름> <url> 명령을 사용한다.
+
+- 원격 저장소 삭제
+
+```
+git remote remove
+```
