@@ -39,7 +39,9 @@ git add . => 현재 나의 위치를 기준으로 모든 파일과 폴더를 의
 - 사진들의 목록을 보는 명령어
     - option
         - `--oneline`: 한눈에 보기 좋게 결과를 불러옴.
-        - `--graph` : 커밋들에 하나하나의 선을 달아서 보여줌. - 흐름을 보기 좋게 보여줌. 
+        - `--graph` : 커밋들에 하나하나의 선을 달아서 보여줌. - 흐름을 보기 좋게 보여줌.
+
+        :![git log --graph](../assets/git-log-graph.png)
 
 ## `git remote`
 - 원격저장소 관리 명령어
@@ -57,3 +59,5 @@ git remote add {remote_name} {remote url}
 ```
 git remote remove
 ```
+
+    - e.g. `git remote remove origin`
