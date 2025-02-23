@@ -5,7 +5,9 @@
 > 날짜별 정리 내용이 아닌, 관련 교육 내용 <python>은 [https://github.com/iam-Aerin/python/tree/master](https://github.com/iam-Aerin/python/blob/master/05_module.ipynb) [github]의 repository 를 통해 확인 가능합니다. 
 
 
->이 내용은 날짜별 (혹은 주차별) TIL 기록을 위해 생성했습니다. 
+>이 내용은 날짜별 (혹은 주차별) TIL 기록을 위해 생성했습니다.
+>위 TIL은 글로벌소프웨어캠스와 동아일보가 함께 진행하는 챌린지입니다.
+>#내맘대로TIL챌린지 #동아일보 #미디어프론티어 #글로벌소프트웨어캠퍼스 #GSC신촌
 
 ### Links (이번주 학습에 사용된 링크모음)
 - [requests모듈링크] https://requests.readthedocs.io/en/latest/
