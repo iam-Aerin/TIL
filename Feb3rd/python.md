@@ -10,9 +10,10 @@
 - [requests모듈링크] https://requests.readthedocs.io/en/latest/
 - [동행복권 이번주 로또 당첨번호]https://dhlottery.co.kr/gameResult.do?method=byWin&wiselog=C_A_1_2
 - [파이썬 자습서] https://docs.python.org/ko/3.13/tutorial/index.html
+- [영화산업진흥위원회 오픈 API] https://www.kobis.or.kr/kobisopenapi/homepg/main/main.do
 
 ### keyword
-> dictionary, set, module, package, datetime, 로또, 버블함수 
+> dictionary, set, module, package, datetime, 로또, 버블함수, 객체지향 (OOP), 클래스
 
 > 한 일: `python` (jupyter notebook을 통해 수업 내용 정리), `programmers`에서 관련 예제 풀이 (`algo`: https://github.com/iam-Aerin/algo)를 통해 문제 풀이 세부 내용이 확인가능합니다. 
 
@@ -20,7 +21,8 @@
 ##### String 은 immutable 하므로 수정이 불가하다.
 
 > 어려웠던 예제!
-
++ https://www.kobis.or.kr/kobisopenapi/homepg/main/main.do
+  (영화산업진흥위원회 오픈 API)
 
 ```python
 #<모음제거하기>
@@ -106,6 +108,10 @@ print(solution(1234))
 5. datetime
 6. 외부라이브러리
     1. requests
+7. 객체지향프로그래밍
+    1. 클래스, 속성, 행동, 인스턴스
+    2. 생성자와 소멸자
+    3. 상속
 #
 #
 #
@@ -342,7 +348,113 @@ print(list(result))
 <zip object at 0x00000143A1C6E500>
 [(1, 100), (2, 200), (3, 300)]
 ```
+# 7. 객체지향프로그래밍 (OOP)
+#예를 들어, 우리가 핸드폰을 만든다고한다면? 
+#그 안의 기능들은? 어떻게 만들 것인가.
 
+```
+만일 내가 다른 번호의 핸드폰으로 위와 같은 핸드폰 기능을 만드려고하면,
+너무 귀찮아진다. 안에 들어있는 번호를 일일히 다 바꾼다는 것은 불가능
+따라서, '핸드폰'이라는 기능을 가지는 'class'를 만들어 무한생성이 가능하도록
+```
+
+```python
+number = '010-2222-2222'
+power = True
+phone_book = {
+    'kim': '010-1234-1234',
+    'park': '010-9876'9876',
+}
+#dictionary 형태로 전화번호부를 생성함. 
+def call(from_num, to_num):
+    print(f'{from_num}가 {to_num}한테 전화 거는중')
+
+call(number, phone_book['kim'])
+```
+
+## 7-1 class
+클래스 선언 정의
+```python
+class ClassName():
+#camel표기법(각단어의 시작을 대문자로 표기)
+    attribute1 = value1
+    attribute2 = value2
+    #값, 속성, 정보를 넣는 공간을 생성한다 (변수를 정의한다와 동일)
+```
+
+인스턴스화 (클래스 실행)
+
+c = CLassName()
+
+또다른 예시
+
+```python
+class Person():
+    name = ''
+    gender = ''
+    age = 0
+    height = 0
+
+    def greeting(self):
+        print(f'안녕하세요. 나는 {self.name} 이애요~(•ө•)♡.')
+    
+    def grow(self):
+        self.age += 1
+        #나이를 한살 먹는다를 표현중
+#사람 (Person) 에 대한 클래스를 정의함. 
+#2개의 기능을 부여했슴.
+```
+
+
+### 클래스 변수/ 인스턴스 변수
+```python
+클래스 변수 : 클래스 선언 블록 최상단에 위치
+인스턴스 변수 : 인스턴스 내부에서 생성한 변수
+class MyClass():
+    class_variable = '클래스변수'
+
+    def __init__(self):
+    self.instance_variable = '인스턴스 변수'
+```
+
+## 7-2 생성자와 소멸자
+```python
+class Person:
+    def __init__(self, n):  # 생성자 추가
+        self.name = n
+        print('생성됨')
+
+    def __del__(self):
+        print('소멸됨')
+```
+
+## 7-3 상속
+
+#한번 만들어 놓은 것을 어디서든 가져와서 쓰기위해서
+```python
+class Person():
+    def __init__(self, name, age, email, phone):
+        self.name = name
+        self.age = age
+        self.email = email
+        self.phone = phone
+        
+        
+class Student(Person):
+
+    def __init__(self, name, age, email, phone, studnet_id):
+    #     self.name = name
+    #     self.age = age
+    #     self.email = email
+    #     self.phone = phone
+    #부모 (Person)의 특성을 상속받음.
+    #     self.student_id = student_id
+
+#    => 부모가 가진 __init__이라는 함수를 먼저 호출해올것이다. 
+
+# => 너무 긴 코드 해결하고자
+# => 아래처럼 super(). 불러오고자하는 부모의 함수를 실행한다. 
+```
 
 
 ## 이미지로 다시보는 이번주 공부
