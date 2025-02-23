@@ -2,7 +2,8 @@
 
 ## 17~21 Feb 2025
 > 의 수업 내용 정리를 다룹니다. 
-> 날짜별 정리 내용이 아닌, 관련 교육 내용 <python>은 https://github.com/iam-Aerin/python/tree/master [github]의 repository 를 통해 확인 가능합니다. 
+> 날짜별 정리 내용이 아닌, 관련 교육 내용 <python>은 [https://github.com/iam-Aerin/python/tree/master](https://github.com/iam-Aerin/python/blob/master/05_module.ipynb) [github]의 repository 를 통해 확인 가능합니다. 
+
 
 >이 내용은 날짜별 (혹은 주차별) TIL 기록을 위해 생성했습니다. 
 
