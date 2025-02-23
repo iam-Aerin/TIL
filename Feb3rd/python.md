@@ -358,16 +358,6 @@ python 에서 사용하는 이름들은 이름공간에 저장되어있습니다
 ![alt text](image.png)
 
 ### 파이썬의 데이터 저장 구조
-    
-    Stack and Queue
-    
-    ![alt text](image-1.png)
-    
-    ![alt text](image-2.png)
-    
-    numbers.pop()⇒ 맨 뒤에 있는 데이터를 뺀다. 
-    
-
 ⇒ 파이썬은 기본적으로 Stack 구조를 띄나, Queue 처럼 (맨 앞 데이터를 불러옴) 쓸 수 있음.
 
 
