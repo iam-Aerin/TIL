@@ -200,6 +200,7 @@ s = pd.Series([1, 3, np.nan, 10, 11, np.nan])
 - 2차원 데이터 구조 (excel, sheet와 유사)
 - 행 (row) 과 열 (column)의 구조
 
-
+##
+##
 # 3. 파일 불러오기
 ### > `pandas/ 02_file_load_save.ipynb` 에서 확인 가능.
