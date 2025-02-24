@@ -2,17 +2,23 @@
 
 ## 17~21 Feb 2025
 > 의 수업 내용 정리를 다룹니다. 
-> 날짜별 정리 내용이 아닌, 관련 교육 내용 <python>은 https://github.com/iam-Aerin/python/tree/master [github]의 repository 를 통해 확인 가능합니다. 
+> 날짜별 정리 내용이 아닌, 관련 교육 내용 <python>은 [https://github.com/iam-Aerin/python/tree/master](https://github.com/iam-Aerin/python/blob/master/05_module.ipynb) [github]의 repository 를 통해 확인 가능합니다. 
 
->이 내용은 날짜별 (혹은 주차별) TIL 기록을 위해 생성했습니다. 
+
+>이 내용은 날짜별 (혹은 주차별) TIL 기록을 위해 생성했습니다.
+>
+>위 TIL은 글로벌소프웨어캠스와 동아일보가 함께 진행하는 챌린지입니다.
+>
+>#내맘대로TIL챌린지 #동아일보 #미디어프론티어 #글로벌소프트웨어캠퍼스 #GSC신촌
 
 ### Links (이번주 학습에 사용된 링크모음)
 - [requests모듈링크] https://requests.readthedocs.io/en/latest/
 - [동행복권 이번주 로또 당첨번호]https://dhlottery.co.kr/gameResult.do?method=byWin&wiselog=C_A_1_2
 - [파이썬 자습서] https://docs.python.org/ko/3.13/tutorial/index.html
+- [영화산업진흥위원회 오픈 API] https://www.kobis.or.kr/kobisopenapi/homepg/main/main.do
 
 ### keyword
-> dictionary, set, module, package, datetime, 로또, 버블함수 
+> dictionary, set, module, package, datetime, 로또, 버블함수, 객체지향 (OOP), 클래스
 
 > 한 일: `python` (jupyter notebook을 통해 수업 내용 정리), `programmers`에서 관련 예제 풀이 (`algo`: https://github.com/iam-Aerin/algo)를 통해 문제 풀이 세부 내용이 확인가능합니다. 
 
@@ -20,7 +26,8 @@
 ##### String 은 immutable 하므로 수정이 불가하다.
 
 > 어려웠던 예제!
-
++ https://www.kobis.or.kr/kobisopenapi/homepg/main/main.do
+  (영화산업진흥위원회 오픈 API)
 
 ```python
 #<모음제거하기>
@@ -106,6 +113,10 @@ print(solution(1234))
 5. datetime
 6. 외부라이브러리
     1. requests
+7. 객체지향프로그래밍
+    1. 클래스, 속성, 행동, 인스턴스
+    2. 생성자와 소멸자
+    3. 상속
 #
 #
 #
@@ -343,6 +354,222 @@ print(list(result))
 [(1, 100), (2, 200), (3, 300)]
 ```
 
+# 3. 모듈
+## 모듈화: 내가 필요한 기능끼리 하나로 묶어서 활용
+
+개발하는 것을 편하게 하고자 module을 도입함. => 모듈보다 더 큰 범위 => 패키지
+>> 파이썬 doc 기준 - 10.6 math 부분을 공부하는 중이다.
+https://docs.python.org/ko/3.13/tutorial/stdlib.html#mathematics
+
+```python
+import math
+#수식을 계산할 수 있는 기능의 패키지 `math`
+
+math.pi
+#파이
+
+math.ceil(math.e)
+#소수점 자리의 숫자를 무조건 올리는 함수
+
+math.floor(math.e)
+#내림
+
+math.sqrt(9)
+#루트
+
+from math import sqrt, factorial
+# 이 방식으로 내가 필요한 함수계산식을 불러오는 경우가 가장 많다. 
+```
+
+# 4. Package (파이썬 내장 패키지)
+### random
+```python
+random.random()
+#<<random이라는 파일(폴더, 모듈)안의 random이라는 함수이름>>으로 호출
+```
+```python
+random.seed(123)
+random.random()
+#seed()를 사용하면 '무작위 random'의 결과를 특정한 값으로 고정할 수 있다.
+#https://docs.python.org/ko/3.13/library/random.html#module-random
+```
+
+### random 으로 복원, 비복원추출, 특정n개의 번호를 추출할 수 있음 => e.g. 복권
+
+
+# 5. datetime
+```python
+from datetime import datetime
+```
+#현재 시간을 알고싶다면?
+```python
+datetime.now()
+```
+=> 국가별로 시간이 다르기에, 필요하면 검색해서 적용하자. 
+```python
+print(now) 
+#=> 사람이 보기 좋게
+#내가 원하는 방식으로 형식을 바꿔서 출력하기
+
+now.strftime('%Y년 %m월 %d일')
+now.strftime('%Y/ %m/ %d')
+```
+# 6. 외부라이브러리
+- requests
+```python
+r = requests.get('http://api.github.com/events')
+```
+- 어떠한 웹사이트의 내용을 불러오고 싶을때 `requests` 라는 라이브러리를 통해 json 형태의 정보를 받아온다.
+e.g.
+```python
+payload = {'query': '파이썬'}
+r = requests.get('http://search.naver.com/search.naver', params=payload)
+print(r.url)
+```
+
+=> 이번주 로또 번호를 동행복권 웹사이트에서 불러오자!
+```python
+lotto_url = 'https://www.dhlottery.co.kr/common.do'
+
+payload = {
+    'method': 'getLottoNumber',
+    'drwNo': 1159,
+}
+
+r = requests.get(lotto_url, params=payload)
+#print(r.url)
+#print(r.text)
+print(r.json())
+#text(기본 json) 은 String타입으로 인식 ""/ json함수 = json -> dictionary로 바꿔준다. 바꿨을 때는 dictionary로 인식 {''}
+lotto_dict = r.json()
+
+# print(lotto_dict['drwNo'])
+# print(lotto_dict['drwNoDate'])
+# print(lotto_dict['drwtNo1'])
+# print(lotto_dict['drwtNo2'])
+# print(lotto_dict['drwtNo3'])
+
+for i in range(1, 7):
+    print(lotto_dict[f'drwtNo{i}'])
+```
+> 페어프로그래밍 (로또)
+```
+로또 5000원 구매하기
+랜덤으로 5개의 로또 번호를 생성합니다.
+등수 확인하기
+최신회차의 당첨번호와 생성된 번호를 비교하여 몇등인지 출력합니다.
+1, 3, 4, 5, 꽝
+2등
+```
+=> 자세한 문제풀이는 https://github.com/iam-Aerin/python/blob/master/05_module.ipynb 에서 확인 가능.
+
+# 7. 객체지향프로그래밍 (OOP)
+#예를 들어, 우리가 핸드폰을 만든다고한다면? 
+#그 안의 기능들은? 어떻게 만들 것인가.
+
+```
+만일 내가 다른 번호의 핸드폰으로 위와 같은 핸드폰 기능을 만드려고하면,
+너무 귀찮아진다. 안에 들어있는 번호를 일일히 다 바꾼다는 것은 불가능
+따라서, '핸드폰'이라는 기능을 가지는 'class'를 만들어 무한생성이 가능하도록
+```
+
+```python
+number = '010-2222-2222'
+power = True
+phone_book = {
+    'kim': '010-1234-1234',
+    'park': '010-9876'9876',
+}
+#dictionary 형태로 전화번호부를 생성함. 
+def call(from_num, to_num):
+    print(f'{from_num}가 {to_num}한테 전화 거는중')
+
+call(number, phone_book['kim'])
+```
+
+## 7-1 class
+클래스 선언 정의
+```python
+class ClassName():
+#camel표기법(각단어의 시작을 대문자로 표기)
+    attribute1 = value1
+    attribute2 = value2
+    #값, 속성, 정보를 넣는 공간을 생성한다 (변수를 정의한다와 동일)
+```
+
+인스턴스화 (클래스 실행)
+
+c = CLassName()
+
+또다른 예시
+
+```python
+class Person():
+    name = ''
+    gender = ''
+    age = 0
+    height = 0
+
+    def greeting(self):
+        print(f'안녕하세요. 나는 {self.name} 이애요~(•ө•)♡.')
+    
+    def grow(self):
+        self.age += 1
+        #나이를 한살 먹는다를 표현중
+#사람 (Person) 에 대한 클래스를 정의함. 
+#2개의 기능을 부여했슴.
+```
+
+
+### 클래스 변수/ 인스턴스 변수
+```python
+클래스 변수 : 클래스 선언 블록 최상단에 위치
+인스턴스 변수 : 인스턴스 내부에서 생성한 변수
+class MyClass():
+    class_variable = '클래스변수'
+
+    def __init__(self):
+    self.instance_variable = '인스턴스 변수'
+```
+
+## 7-2 생성자와 소멸자
+```python
+class Person:
+    def __init__(self, n):  # 생성자 추가
+        self.name = n
+        print('생성됨')
+
+    def __del__(self):
+        print('소멸됨')
+```
+
+## 7-3 상속
+
+#한번 만들어 놓은 것을 어디서든 가져와서 쓰기위해서
+```python
+class Person():
+    def __init__(self, name, age, email, phone):
+        self.name = name
+        self.age = age
+        self.email = email
+        self.phone = phone
+        
+        
+class Student(Person):
+
+    def __init__(self, name, age, email, phone, studnet_id):
+    #     self.name = name
+    #     self.age = age
+    #     self.email = email
+    #     self.phone = phone
+    #부모 (Person)의 특성을 상속받음.
+    #     self.student_id = student_id
+
+#    => 부모가 가진 __init__이라는 함수를 먼저 호출해올것이다. 
+
+# => 너무 긴 코드 해결하고자
+# => 아래처럼 super(). 불러오고자하는 부모의 함수를 실행한다. 
+```
 
 
 ## 이미지로 다시보는 이번주 공부
