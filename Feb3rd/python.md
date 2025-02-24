@@ -361,9 +361,9 @@ python 에서 사용하는 이름들은 이름공간에 저장되어있습니다
     
     Stack and Queue
     
-    ![alt text](image-1.png)
-    
-    ![alt text](image-2.png)
+    ![stackimage](assets/stack_image.png)
+    ![queueimage](assets/queue_image.png)
+
     
     numbers.pop()⇒ 맨 뒤에 있는 데이터를 뺀다. 
     
