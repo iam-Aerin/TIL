@@ -5,6 +5,15 @@
 > 날짜별 정리 내용이 아닌, 관련 교육 내용 <python>은 https://github.com/iam-Aerin/python/tree/master [github]의 repository 를 통해 확인 가능합니다. 
 
 >이 내용은 날짜별 (혹은 주차별) TIL 기록을 위해 생성했습니다. 
+>#내맘대로TIL챌린지 #동아일보 #미디어프론티어 #글로벌소프트웨어캠퍼스 #GSC신촌
+
+TIL(Today I Learned) 오늘 배운 내용을 기록합니다.
+
+-> 현재 이 프로젝트/ 폴더가 어떤 내용인지를 설명하는 파일 (설명서) - (README)
+
+linux
+markdown
+=> 코드가 바뀔 때 마다, 저장 - add - commit 을 거침.
 
 ### Links (이번주 학습에 사용된 링크모음)
 - [numpy] (: 모듈 설치 및 가이드 documentation) https://numpy.org/doc/
