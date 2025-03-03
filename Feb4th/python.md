@@ -20,7 +20,7 @@ markdown
 - [pandas] (: 모듈 설치 및 가이드 documentation) https://pandas.pydata.org/docs/getting_started/intro_tutorials/01_table_oriented.html
 
 ### keyword
-> Series,
+> Series, 머신러닝, 딥러닝, KNN
 
 > 한 일: 
 - numpy, pandas 라이브러리를 통해 숫자 배열 관련 데이터 분석을 더 쉽게, 엑셀 혹은 csv 데이터를 불러와 그 안의 값을 들여다보기 등
@@ -60,6 +60,7 @@ markdown
     6. 슬라이싱
     7. DataFrame
 3. File 불러오기 (excel, csv)
+4. 머신러닝닝
 
 # 1. Numpy (넘파이)
 - 라이브러리
@@ -213,3 +214,22 @@ s = pd.Series([1, 3, np.nan, 10, 11, np.nan])
 ##
 # 3. 파일 불러오기
 ### > `pandas/ 02_file_load_save.ipynb` 에서 확인 가능.
+
+# 4. MACHINE LEARNING (ml)
+### > `https://github.com/iam-Aerin/ml` 에 내용 정리함.
+> #차트를 시각화해서 점찍어보기
+- `#matplotlib library 를 설치해서 시각화하기 - 터미널에 (vscode)`
+## KNN (K-Neareat Neighbours): K-최근접 이웃 알고리즘
+- https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html
+- SciKit 라이브러리를 통해 (vscode에서 install 설치를 하고) -> 아래와 같이 내가 사용할
+- `KNeighborsClassifier` 알고리즘 기능을 불러와 사용해보겠다.
+
+## 02-1. 훈련 세트와 테스트 세트 (p.66)
+- 지도학습으로 훈련 세트와 테스트 세트를 구분하여 나의 모델을 학습시킴.
+- 학습 인풋/ 정답 데이터 & 테스트 인풋/ 정답 데이터를 만듦. 
+
+## 02-2 데이터 전처리 (p.87)
+- 표준점수화해서 데이터를 학습 시키고, 평가(테스트) 한다.
+- 점수를 표준점수로 바꾸겠다
+- 표준점수는 각 데이터가 원점에서 몇 표준편차만큼 떨어져 있는지를 나타내는 값이다.
+> 자세한 예제 문제 코드는 `https://github.com/iam-Aerin/ml/blob/master/2.2.ipynb` 에서 확인 가능함.
