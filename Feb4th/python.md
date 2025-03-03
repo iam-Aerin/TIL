@@ -4,6 +4,11 @@
 > 의 수업 내용 정리를 다룹니다. 
 > 날짜별 정리 내용이 아닌, 관련 교육 내용 <python>은 https://github.com/iam-Aerin/python/tree/master [github]의 repository 를 통해 확인 가능합니다. 
 
+#
+https://www.notion.so/196d384c40db80129561c25961bf1bba
+> `git` 이외에도 노션 (https://www.notion.so/196d384c40db80129561c25961bf1bba) 을 통해 학습 내용을 정리 중입니다.
+#
+
 >이 내용은 날짜별 (혹은 주차별) TIL 기록을 위해 생성했습니다. 
 >#내맘대로TIL챌린지 #동아일보 #미디어프론티어 #글로벌소프트웨어캠퍼스 #GSC신촌
 
