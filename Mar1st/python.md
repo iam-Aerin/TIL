@@ -133,7 +133,7 @@ y = β₀ + β₁X₁ + β₂X₂ + ... + βₙXₙ + ε
 
 ### ✅ 종류
 1. **단순 선형 회귀(Simple Linear Regression)**
-   - 독립 변수가 **1개**일 때 사용
+## 독립 변수가 **1개**일 때 사용
    ```python
    from sklearn.linear_model import LinearRegression
    model = LinearRegression()
@@ -142,7 +142,7 @@ y = β₀ + β₁X₁ + β₂X₂ + ... + βₙXₙ + ε
    ```
 
 2. **다중 선형 회귀(Multiple Linear Regression)**
-   - 독립 변수가 **여러 개**일 때 사용
+ ## 독립 변수가 **여러 개**일 때 사용
    ```python
    model = LinearRegression()
    model.fit(X_train, y_train)
@@ -209,30 +209,6 @@ predictions = poly_model.predict(X_test)
    from sklearn.preprocessing import PolynomialFeatures
    poly = PolynomialFeatures(degree=2, include_bias=False)
    X_poly = poly.fit_transform(X)
-   ```
-
-2. **스케일링 (Scaling)**
-   - 데이터의 값 범위를 조정하여 모델이 특정 특성에 과도하게 의존하지 않도록 함
-   ```python
-   from sklearn.preprocessing import StandardScaler
-   scaler = StandardScaler()
-   X_scaled = scaler.fit_transform(X)
-   ```
-
-3. **원-핫 인코딩 (One-Hot Encoding)**
-   - 범주형 데이터를 수치형으로 변환
-   ```python
-   from sklearn.preprocessing import OneHotEncoder
-   encoder = OneHotEncoder()
-   X_encoded = encoder.fit_transform(X)
-   ```
-
-4. **차원 축소 (PCA, LDA)**
-   - 불필요한 특성을 줄여 모델 성능을 향상
-   ```python
-   from sklearn.decomposition import PCA
-   pca = PCA(n_components=2)
-   X_pca = pca.fit_transform(X)
    ```
 
 ---
