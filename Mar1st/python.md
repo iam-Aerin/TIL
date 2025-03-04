@@ -130,29 +130,72 @@ print("Best K value:", grid_search.best_params_['n_neighbors'])
 # - 독립 변수들이 종속 변수에 영향을 주며, 관계가 선형일 것으로 예상될 때
 # - 독립 변수 간 다중공선성(multicollinearity)이 크지 않을 때
 
-## 3-3. 릿지 회귀 (Ridge Regression)
-# 다중 선형 회귀에서 과적합(overfitting)을 방지하기 위해 L2 정규화(페널티)를 추가한 모델
-# 회귀 계수를 너무 크게 만드는 것을 방지 → 다중공선성 문제 완화
+# 3. 특성 공학과 규제
 
-# 예제:
-# - 고차원의 데이터에서 다중 선형 회귀를 사용할 때 과적합을 방지하기 위해 활용
-# - 의료 데이터(환자의 여러 건강 지표를 이용해 질병 확률 예측)에서 불필요한 계수의 크기를 줄이고 모델 안정성을 높일 때
+## 3-1. 특성공학 (Feature Engineering)
+- 머신러닝 모델의 성능을 향상시키기 위해 **데이터의 특성을 변형, 생성, 조합하는 과정**
+- **좋은 특성을 만들어야 모델의 성능이 향상됨**
 
-# 사용할 때:
-# - 다중공선성이 있는 데이터에서 과적합을 방지할 때
-# - 예측 성능을 향상시키기 위해 회귀 계수 크기를 조정하고 싶을 때
+#### ✅ 특성 공학의 주요 기법
+1. **다항 특성 생성**
+   - 기존 특성을 거듭제곱하여 새로운 특성을 생성
+   ```python
+   from sklearn.preprocessing import PolynomialFeatures
+   poly = PolynomialFeatures(degree=2, include_bias=False)
+   X_poly = poly.fit_transform(X)
+   ```
 
-## 3-4. 라쏘 회귀 (Lasso Regression)
-# 다중 선형 회귀에서 L1 정규화(페널티)를 적용하여 계수 중 일부를 0으로 만듦 → 변수 선택 기능 제공
-# 불필요한 독립 변수를 자동으로 제거 (모델이 스스로 중요한 변수만 선택)
+2. **스케일링 (Scaling)**
+   - 데이터의 값 범위를 조정하여 모델이 특정 특성에 과도하게 의존하지 않도록 함
+   ```python
+   from sklearn.preprocessing import StandardScaler
+   scaler = StandardScaler()
+   X_scaled = scaler.fit_transform(X)
+   ```
 
-# 예제:
-# - 주식 가격 예측 (많은 변수 중 중요한 몇 개만 선택하여 분석)
-# - 유전학 데이터 분석 (수천 개의 유전자 중 특정 질병과 관련된 소수만 선택)
+3. **원-핫 인코딩 (One-Hot Encoding)**
+   - 범주형 데이터를 수치형으로 변환
+   ```python
+   from sklearn.preprocessing import OneHotEncoder
+   encoder = OneHotEncoder()
+   X_encoded = encoder.fit_transform(X)
+   ```
 
-# 사용할 때:
-# - 데이터에 많은 변수가 있고, 그중 일부만 중요한 경우
-# - 변수 선택을 자동화하고 싶을 때
+4. **차원 축소 (PCA, LDA)**
+   - 불필요한 특성을 줄여 모델 성능을 향상
+   ```python
+   from sklearn.decomposition import PCA
+   pca = PCA(n_components=2)
+   X_pca = pca.fit_transform(X)
+   ```
+
+---
+
+## 3-2. 규제 (Regularization)
+- 머신러닝 모델이 과적합되지 않도록 **모델의 복잡도를 제한하는 기법**
+- 선형 회귀 모델에서 **회귀 계수(가중치)를 제한하여 모델을 단순하게 유지**
+
+#### ✅ 규제 종류: 릿지, 라쏘
+
+## 3-3. **릿지 회귀 (Ridge Regression, L2 정규화)**
+   - 회귀 계수의 제곱합을 최소화하여 과적합 방지
+   ```python
+   from sklearn.linear_model import Ridge
+   ridge = Ridge(alpha=1.0)
+   ridge.fit(X_train, y_train)
+   ```
+
+## 3-4. **라쏘 회귀 (Lasso Regression, L1 정규화)**
+   - 일부 회귀 계수를 0으로 만들어 **불필요한 특성을 자동 선택**
+   ```python
+   from sklearn.linear_model import Lasso
+   lasso = Lasso(alpha=0.1)
+   lasso.fit(X_train, y_train)
+   ```
+
+#### ✅ 규제 사용 시기
+- **릿지 회귀**: 다중공선성이 있는 데이터에서 과적합을 방지하고 싶을 때
+- **라쏘 회귀**: 중요한 특성만 자동 선택하고 싶을 때
 
 
 # 정리: 언제 어떤 모델을 사용해야 할까?
@@ -163,12 +206,4 @@ situation_model_mapping = {
     "독립 변수가 많고, 중요 변수만 선택하고 싶음": "라쏘 회귀",
     "독립 변수가 한 개만 있을 때": "단순 선형 회귀"
 }
-
-# 추천된 모델 출력
-def recommend_model(situation):
-    return situation_model_mapping.get(situation, "해당 상황에 맞는 모델이 없습니다.")
-
-# 사용 예시
-print(recommend_model("다중공선성이 존재하고 과적합을 방지하고 싶음"))
-
 
