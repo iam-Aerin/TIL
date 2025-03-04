@@ -118,17 +118,83 @@ print("Best K value:", grid_search.best_params_['n_neighbors'])
  ```
 
 
-### 다중 선형 회귀 (Multiple Linear Regression)
-# 여러 개의 독립 변수가 종속 변수에 영향을 주는 경우 사용
-# 종속 변수와 독립 변수 간의 관계를 선형으로 가정
+### ✅ 개념
+- 선형 회귀는 **독립 변수(X)와 종속 변수(Y) 간의 관계를 직선(선형 함수)으로 모델링하는 회귀 기법**
+- 입력 변수의 선형 결합을 통해 출력을 예측함
 
-# 예제:
-# 집 가격 예측 (면적, 방 개수, 위치 등의 독립 변수를 사용)
-# 광고 비용(독립 변수)과 매출(종속 변수)의 관계 분석
+### ✅ 선형 회귀 공식
 
-# 사용할 때:
-# - 독립 변수들이 종속 변수에 영향을 주며, 관계가 선형일 것으로 예상될 때
-# - 독립 변수 간 다중공선성(multicollinearity)이 크지 않을 때
+y = β₀ + β₁X₁ + β₂X₂ + ... + βₙXₙ + ε
+
+- **β₀** : 절편(intercept)
+- **β₁, β₂, ..., βₙ** : 회귀 계수(가중치)
+- **X₁, X₂, ..., Xₙ** : 독립 변수(설명 변수)
+- **ε** : 오차항(residual error)
+
+### ✅ 종류
+1. **단순 선형 회귀(Simple Linear Regression)**
+   - 독립 변수가 **1개**일 때 사용
+   ```python
+   from sklearn.linear_model import LinearRegression
+   model = LinearRegression()
+   model.fit(X_train, y_train)
+   predictions = model.predict(X_test)
+   ```
+
+2. **다중 선형 회귀(Multiple Linear Regression)**
+   - 독립 변수가 **여러 개**일 때 사용
+   ```python
+   model = LinearRegression()
+   model.fit(X_train, y_train)
+   ```
+
+### ✅ 장점
+- 해석이 간단하고 구현이 쉬움
+- 계산량이 적어 빠르게 학습 가능
+- 과적합이 적음 (단, 다중공선성이 있을 경우 문제 발생 가능)
+
+### ✅ 단점
+- **독립 변수와 종속 변수 간의 관계가 선형이어야 함**
+- 이상치(Outlier)에 민감함
+- 다중공선성(multicollinearity) 문제가 발생할 수 있음
+
+---
+
+## 2-2. 다항회귀 (Polynomial Regression)
+### ✅ 개념
+- 다항 회귀는 **독립 변수와 종속 변수 간의 관계가 곡선(비선형)일 때 적용하는 회귀 기법**
+- 선형 회귀의 확장 개념이며, **입력 변수의 거듭제곱 항(제곱, 세제곱 등)을 추가**하여 곡선을 모델링
+
+### ✅ 다항 회귀 공식
+
+y = β₀ + β₁X + β₂X² + β₃X³ + ... + βₙXⁿ + ε
+
+- **X², X³ 등의 고차항을 추가하여 비선형 관계를 학습 가능**
+- 선형 회귀와 마찬가지로 가중치(β)를 학습하여 최적의 예측 모델 생성
+
+### ✅ 예제 (Python 코드)
+```python
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import LinearRegression
+from sklearn.pipeline import make_pipeline
+
+# 2차 다항 회귀 모델 생성
+poly_model = make_pipeline(PolynomialFeatures(degree=2), LinearRegression())
+poly_model.fit(X_train, y_train)
+predictions = poly_model.predict(X_test)
+```
+- `PolynomialFeatures(degree=2)`: 입력 변수의 2차 항을 추가
+- `make_pipeline()`: 다항 변환 후 선형 회귀를 적용하는 파이프라인 생성
+
+### ✅ 장점
+- 선형 회귀보다 **비선형 데이터 학습이 가능**
+- 상대적으로 간단한 변환만으로 곡선 관계를 표현할 수 있음
+
+### ✅ 단점
+- 차수를 너무 높이면 **과적합(Overfitting)** 가능성 증가
+- 다항식의 차수를 몇 차까지 설정할지 정하는 것이 중요
+
+---
 
 # 3. 특성 공학과 규제
 
