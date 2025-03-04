@@ -17,7 +17,7 @@
    ** => **add를 안하고, commit을 하는 실수가 종종 발생함 !****
 
 
-   ## 파일의 라이프 사이클
+   ## 파일의 라이프 사이클w
    ![lifecycle](../assets/lifecycle.png)
    
    - 워킹 디렉토리의 모든 파일은 크게 **Tracked(관리대상임)와 Untracked(관리대상이 아님)로 나눈다.** 
