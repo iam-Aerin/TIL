@@ -122,7 +122,7 @@ print("Best K value:", grid_search.best_params_['n_neighbors'])
 
 
 # 2. 선형 회귀 (Simple Linear Regression)
-# 독립 변수가 한 개일 때 사용 (단순한 선형 관계를 분석)
+> 독립 변수가 한 개일 때 사용 (단순한 선형 관계를 분석)
 
 ```
 예제:
