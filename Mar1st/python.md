@@ -1,4 +1,5 @@
-# 3월 2주차 TIL 내용 정리
+# 3월 1주차 TIL 내용 정리
+---
 
 ## 4~7 Mar 2025
 > 의 수업 내용 정리를 다룹니다. 
@@ -22,7 +23,7 @@ TIL(Today I Learned) 오늘 배운 내용을 기록합니다.
 
 
 ### keyword
-> 선형회귀, 다중회귀, 릿지, 라쏘, 로지스틱회귀
+> 선형회귀, 다중회귀, 릿지, 라쏘, 로지스틱회귀, 다중회귀, 의사결정트리 알고리즘
 
 > 한 일: 
 - 선형회귀를 통해 `데이터를 가장 잘 대변하는 최적의 선`을 찾아보자.
@@ -187,7 +188,7 @@ y = β₀ + β₁X + β₂X² + β₃X³ + ... + βₙXⁿ + ε
 - **X², X³ 등의 고차항을 추가하여 비선형 관계를 학습 가능**
 - 선형 회귀와 마찬가지로 가중치(β)를 학습하여 최적의 예측 모델 생성
 
-### ✅ 예제 (Python 코드)
+### ✅ 예제
 ```python
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
