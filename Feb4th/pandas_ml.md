@@ -64,7 +64,7 @@ markdown
     6. 슬라이싱
     7. DataFrame
 3. File 불러오기 (excel, csv)
-4. 머신러닝닝
+4. 머신러닝
 
 # 1. Numpy (넘파이)
 - 라이브러리

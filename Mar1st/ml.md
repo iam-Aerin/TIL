@@ -1,12 +1,11 @@
-# 3월 1주차 TIL 내용 정리
----
+# Machine Learning (ML)
+> 위 문서는 머신러닝 (혼자 공부하는 머신러닝 + 딥러닝 책을 기반으로) 공부한 내용을 `TIL` 챌린지를 위해 작성한 내용입니다. 
 
-## 4~7 Mar 2025
-> 의 수업 내용 정리를 다룹니다. 
-> 날짜별 정리 내용이 아닌, 관련 교육 내용 <ml>은 https://github.com/iam-Aerin/ml/tree/master [github]의 repository 를 통해 확인 가능합니다. 
+# TIL 내용 정리 (3월 1주차)
+---
+> 더 자세한 코드/ 예제는 <ml>은 https://github.com/iam-Aerin/ml/tree/master [github]의 repository 를 통해 확인 가능합니다. 
 
 #
-
 >이 내용은 날짜별 (혹은 주차별) TIL 기록을 위해 생성했습니다. 
 >#내맘대로TIL챌린지 #동아일보 #미디어프론티어 #글로벌소프트웨어캠퍼스 #GSC신촌
 
@@ -41,10 +40,12 @@ TIL(Today I Learned) 오늘 배운 내용을 기록합니다.
 #
 #
 
-# 이번주 학습 내용 정리 목차
+# 머신러닝 ....... 
 ## `git`의 `ml` 폴더에서도 확인이 가능합니다.
 #### https://github.com/iam-Aerin/ml/tree/master
 
+
+#  MACHINE LEARNING (ml)
 1. k-최근접 이웃 회귀 (p. 115 ~ ) `3-1.ipynb`
     1. 회귀분석 `KNeighborsRegressor`
     > `from sklearn.neighbors import KNeighborsRegressor`
@@ -80,6 +81,27 @@ TIL(Today I Learned) 오늘 배운 내용을 기록합니다.
       2. 교차 검증 
          `cross_validate()`
       3. 하이퍼 파라미터 튜닝
+
+# MACHINE LEARNING (ml)
+### > `https://github.com/iam-Aerin/ml` 에 내용 정리함.
+> #차트를 시각화해서 점찍어보기
+- `#matplotlib library 를 설치해서 시각화하기 - 터미널에 (vscode)`
+
+## KNN (K-Neareat Neighbours): K-최근접 이웃 알고리즘
+- https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html
+- SciKit 라이브러리를 통해 (vscode에서 install 설치를 하고) -> 아래와 같이 내가 사용할
+- `KNeighborsClassifier` 알고리즘 기능을 불러와 사용해보겠다.
+
+## 02-1. 훈련 세트와 테스트 세트 (p.66)
+- 지도학습으로 훈련 세트와 테스트 세트를 구분하여 나의 모델을 학습시킴.
+- 학습 인풋/ 정답 데이터 & 테스트 인풋/ 정답 데이터를 만듦. 
+
+## 02-2 데이터 전처리 (p.87)
+- 표준점수화해서 데이터를 학습 시키고, 평가(테스트) 한다.
+- 점수를 표준점수로 바꾸겠다
+- 표준점수는 각 데이터가 원점에서 몇 표준편차만큼 떨어져 있는지를 나타내는 값이다.
+> 자세한 예제 문제 코드는 `https://github.com/iam-Aerin/ml/blob/master/2.2.ipynb` 에서 확인 가능함.
+
 
 # 1. k-최근접 이웃 회귀 (K-Nearest Neighbors Regression)
 
