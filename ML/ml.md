@@ -496,7 +496,6 @@ model = keras.Sequential([
 model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 model.fit(X_train, y_train, epochs=50, batch_size=32)
 
----
 ## 7-2. 심층 신경망 (Deep Neural Networks, DNN)
 
 인공 신경망(ANN)에 은닉층(hidden layer)을 여러 개 추가하여 네트워크를 깊게 만든 형태이다.  
@@ -529,7 +528,6 @@ model = keras.Sequential([
 ])
 
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
----
 
 # 8. 합성곱 신경망 (Convolutional Neural Networks, CNN)
 
