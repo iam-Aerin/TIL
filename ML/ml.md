@@ -454,21 +454,118 @@ scores = cross_validate(gb, train_input, train_target, return_train_score=True, 
 print(scores)
 ```
 
-# 7. 딥러닝 (Deep Learning) (p.339) 7-1.ipynb
-## 7-1. 인공 신경망 (Artificial Neural Networks) (p.339)
-- 인공 신경망의 기본 개념과 텐서플로를 사용하여 모델을 구축하는 과정.
+---
 
-## 7-2. 심층 신경망 (Deep Neural Networks) (p.367) 7-2.ipynb
-- 은닉층을 추가하여 더 깊은 네트워크를 구성.
-- 시그모이드, 소프트맥스, 렐루 활성화 함수 적용.
+## 7. 딥러닝 (Deep Learning) (p.339)
 
-# 8. 합성곱 신경망 (CNN) (p.422) 8-1.ipynb
-## 8-1. 합성곱 (Convolution) (p.422)
-- CNN의 핵심 개념으로, 이미지의 지역적 특성을 학습하는 방식이다.
-- 패딩(Padding): 입력 배열의 주위를 가상의 원소로 채워 학습 성능을 향상시킨다.
+### ✅ 딥러닝이란?
 
-```
+딥러닝(Deep Learning)은 인공 신경망의 층(layer)을 깊게 쌓아 올려 복잡한 데이터의 패턴을 자동으로 학습하는 머신러닝의 한 분야이다.
+
+- 기존 머신러닝과 달리 **특성(feature)을 자동으로 추출**함
+- **비선형 문제** 및 **복잡한 데이터 처리**에 뛰어난 성능을 보임
+- 대표적인 딥러닝 프레임워크: **TensorFlow, PyTorch**
+
+---
+
+## 7-1. 인공 신경망 (Artificial Neural Networks, ANN) (p.339)  
+📂 [`7-1.ipynb`](#)
+
+### ✅ 개념
+- 사람의 뇌 신경망 구조에서 영감을 받아 개발한 알고리즘
+- 입력층, 은닉층, 출력층으로 구성된 네트워크를 통해 데이터를 학습
+
+### ✅ 주요 키워드
+- **뉴런(Neuron)**: 신경망의 기본 단위로 입력값을 받아 처리하는 계산 단위
+- **활성화 함수(Activation function)**: 뉴런이 출력값을 생성할 때 사용하는 함수
+  - `Sigmoid`: 출력값을 0~1 사이로 변환 (이진 분류에서 사용)
+  - **ReLU(렐루)**: 비선형 활성화 함수로 깊은 네트워크에서 주로 사용됨
+- **손실함수(Loss Function)**: 실제값과 예측값 사이 오차를 측정 (예: MSE, Cross-Entropy)
+- **옵티마이저(Optimizer)**: 오차를 최소화하기 위해 네트워크의 가중치를 조정하는 알고리즘 (예: SGD, Adam)
+
+### ✅ TensorFlow로 ANN 모델 구축 예제
+```python
 from tensorflow import keras
-model = keras.Sequential()
-model.add(keras.layers.Conv2D(32, kernel_size=(3,3), activation='relu', input_shape=(28, 28, 1)))
-```
+
+model = keras.Sequential([
+    keras.layers.Dense(64, activation='relu', input_shape=(X_train.shape[1],)),
+    keras.layers.Dense(32, activation='relu'),
+    keras.layers.Dense(1, activation='sigmoid')  # 이진분류 예시
+])
+
+model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+model.fit(X_train, y_train, epochs=50, batch_size=32)
+
+---
+## 7-2. 심층 신경망 (Deep Neural Networks, DNN)
+
+인공 신경망(ANN)에 은닉층(hidden layer)을 여러 개 추가하여 네트워크를 깊게 만든 형태이다.  
+복잡한 데이터의 특성을 효과적으로 학습할 수 있다.
+
+### ✅ 주요 활성화 함수 (Activation Functions)
+
+- **시그모이드(sigmoid)**  
+  - 출력값을 0과 1 사이로 변환하여 확률로 표현
+  - 주로 이진 분류 문제에서 사용
+
+- **소프트맥스(softmax)**  
+  - 여러 클래스 간의 분류 확률을 나타낼 때 사용
+  - 클래스별 확률의 총합은 항상 1
+
+- **렐루(ReLU)**  
+  - 음수 값은 0, 양수 값은 그대로 출력하는 함수
+  - 기울기 소실 문제를 방지하여 깊은 신경망에서 널리 사용
+
+### ✅ 심층 신경망 예시 (TensorFlow Keras)
+
+```python
+from tensorflow import keras
+
+model = keras.Sequential([
+    keras.layers.Dense(128, activation='relu', input_shape=(X_train.shape[1],)),
+    keras.layers.Dense(64, activation='relu'),
+    keras.layers.Dense(32, activation='relu'),
+    keras.layers.Dense(10, activation='softmax')
+])
+
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+---
+
+# 8. 합성곱 신경망 (Convolutional Neural Networks, CNN)
+
+합성곱 신경망(CNN, Convolutional Neural Networks)은 이미지 또는 영상과 같은 공간적 특성을 가진 데이터를 처리할 때 효과적인 신경망 구조이다.
+
+## ✅ CNN의 핵심 개념
+
+### 📌 합성곱(Convolution)
+- 이미지를 필터(커널)로 훑어가며 특성을 추출하는 과정
+- 이미지의 지역적 픽셀 정보를 기반으로 학습한다.
+
+### 📌 합성곱층(Convolution Layer)
+- 여러 개의 필터를 적용하여 이미지에서 다양한 특징(feature)을 추출한다.
+- 필터의 개수만큼 서로 다른 특징 맵(feature map)이 생성된다.
+
+### 📌 풀링층(Pooling Layer)
+- 특징 맵(feature map)의 크기를 축소하여 연산량을 감소시키고, 중요한 특징만을 유지한다.
+- 대표적인 방식: MaxPooling(최대 풀링), AveragePooling(평균 풀링)
+
+### 📌 패딩(Padding)
+- 입력 이미지 가장자리에 가상의 데이터(주로 0)를 추가하여, 합성곱 연산 후에도 이미지 크기를 유지하고 가장자리 정보의 손실을 방지한다.
+
+---
+
+✅ **추가 예제 코드 (TensorFlow Keras)**  
+```python
+from tensorflow import keras
+
+model = keras.Sequential([
+    keras.layers.Conv2D(32, kernel_size=(3,3), activation='relu', input_shape=(28, 28, 1)),
+    keras.layers.MaxPooling2D(pool_size=(2,2)),
+    keras.layers.Conv2D(64, kernel_size=(3,3), activation='relu'),
+    keras.layers.MaxPooling2D(pool_size=(2,2)),
+    keras.layers.Flatten(),
+    keras.layers.Dense(128, activation='relu'),
+    keras.layers.Dense(10, activation='softmax')
+])
+
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
