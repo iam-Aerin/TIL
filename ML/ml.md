@@ -495,6 +495,7 @@ model = keras.Sequential([
 
 model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 model.fit(X_train, y_train, epochs=50, batch_size=32)
+```
 
 ## 7-2. 심층 신경망 (Deep Neural Networks, DNN)
 
@@ -528,6 +529,7 @@ model = keras.Sequential([
 ])
 
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+```
 
 # 8. 합성곱 신경망 (Convolutional Neural Networks, CNN)
 
@@ -550,7 +552,6 @@ model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accur
 ### 📌 패딩(Padding)
 - 입력 이미지 가장자리에 가상의 데이터(주로 0)를 추가하여, 합성곱 연산 후에도 이미지 크기를 유지하고 가장자리 정보의 손실을 방지한다.
 
----
 
 ✅ **추가 예제 코드 (TensorFlow Keras)**  
 ```python
@@ -567,3 +568,4 @@ model = keras.Sequential([
 ])
 
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+```
