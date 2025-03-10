@@ -10,6 +10,8 @@
 > TIL 내용 정리 (3월 1주차) 
 > 
 > #내맘대로TIL챌린지 #동아일보 #미디어프론티어 #글로벌소프트웨어캠퍼스 #GSC신촌
+`글로벌소프트웨어캠퍼스와 동아일보가 함께 진행하는 챌린지입니다.`
+
 
 TIL(Today I Learned) 오늘 배운 내용을 기록합니다.
 
@@ -48,41 +50,42 @@ TIL(Today I Learned) 오늘 배운 내용을 기록합니다.
 
 
 #  MACHINE LEARNING (ml)
-1. k-최근접 이웃 회귀 (p. 115 ~ ) `3-1.ipynb`
-    1. 회귀분석 `KNeighborsRegressor`
-    > `from sklearn.neighbors import KNeighborsRegressor`
-    2. 과대적합과 과소적합 (p.122 (?))
-    
-2. 선형 회귀 (Linear regression) (p.130) `3-2.ipynb`
-    1. LinearRegression()
-    > `from sklearn.linear_model import LinearRegression`
-    2. 다항회귀 (p.139)
-    > (lr.coef_, lr.intercept_)
-    
-3. 특성공학과 규제 (p.150) `3-3.ipynb`
-    1. 특성공학
-    2. 규제
-    3. 릿지 ridge
-    > `from sklearn.linear_model import Ridge`
-    4. 라쏘 rasso
-    > `from sklearn.linear_model import Lasso`
+# 📌 머신러닝 학습 정리 (TIL)
 
-4. 로지스틱 회귀 (p.176) `4-1.ipynb`
-   1. 이진 분류
-   2. 시그모이드 함수
-   3. 다중 분류
-   4. 소프트맥스 함수
-   5. 확률적 경사 하강법 (p.199) `4-2.ipynb`
+## 🏷 목차
 
-5. 트리 알고리즘 (p.220) `5-1.ipynb`
-   1. 결정트리
-      1. 불순도
-      2. 가지치기
-   2. 교차 검증과 그리드 서치 (p.242) `5-2.ipynb`
-      1. 검증 세트
-      2. 교차 검증 
-         `cross_validate()`
-      3. 하이퍼 파라미터 튜닝
+### 1. K-최근접 이웃 회귀 (KNN Regression) (p.115)  
+   - [`3-1.ipynb`](#)  
+
+### 2. 선형 회귀 (Linear Regression) (p.130)  
+   - [`3-2.ipynb`](#)  
+
+### 3. 특성 공학과 규제 (Feature Engineering & Regularization) (p.150)  
+   - [`3-3.ipynb`](#)  
+
+### 4. 로지스틱 회귀 (Logistic Regression) (p.176)  
+   - [`4-1.ipynb`](#)  
+
+### 5. 트리 알고리즘 (Tree Algorithms) (p.220)  
+   - [`5-1.ipynb`](#)  
+
+### 6. 비지도 학습 (Unsupervised Learning) (p.286)  
+   - [`6-1.ipynb`](#)  
+   - **6-1. 군집 알고리즘 (Clustering) (p.286)**  
+   - **6-2. K-평균 (K-Means) (p.300)**  
+     - [`6-2.ipynb`](#)  
+   - **6-3. 주성분 분석 (PCA) (p.318)**  
+     - [`6-3.ipynb`](#)  
+
+### 7. 딥러닝 (Deep Learning) (p.339)  
+   - [`7-1.ipynb`](#)  
+   - **7-1. 인공 신경망 (Artificial Neural Networks) (p.339)**  
+   - **7-2. 심층 신경망 (Deep Neural Networks) (p.367)**  
+     - [`7-2.ipynb`](#)  
+
+### 8. 합성곱 신경망 (CNN) (p.422)  
+   - [`8-1.ipynb`](#)  
+   - **8-1. 합성곱 (Convolution) (p.422)**  
 
 # MACHINE LEARNING (ml)
 ### > `https://github.com/iam-Aerin/ml` 에 내용 정리함.
@@ -136,6 +139,26 @@ predictions = knn_regressor.predict(X_test)
 - 일반적으로 **K=3~10** 사이에서 적절한 값을 선택하는 것이 일반적임.
 - **교차 검증(Cross Validation)** 을 활용하여 최적의 K 값을 찾을 수 있음.
 
+---
+# 🔍 K-최근접 이웃(KNN) 알고리즘 vs K-최근접 이웃 회귀(KNN 회귀)
+
+K-최근접 이웃(KNN)은 **분류(Classification)와 회귀(Regression)에서 모두 사용**됩니다.  
+두 방식 모두 **가장 가까운 `k`개의 데이터**를 사용하여 예측하지만, **예측 방식이 다릅니다.**  
+
+---
+
+## 📌 KNN 분류 (Classification)
+- 새로운 데이터가 들어오면, **가장 가까운 `k`개의 데이터 중 다수결 투표**를 통해 클래스를 결정합니다.  
+- **예측 방식:** `k`개의 이웃 중 **가장 많이 등장한 클래스(Label)를 선택**  
+- `k`가 작으면 → **과대적합 위험** (훈련 데이터에 너무 민감)  
+- `k`가 크면 → **과소적합 위험** (너무 단순한 모델)  
+
+### ✅ **예제 (k=3)**  
+```plaintext
+🐱 🐶 🐶  → 과반수가 🐶 → 예측값: 🐶
+
+
+---
 ```python
 from sklearn.model_selection import GridSearchCV
 param_grid = {'n_neighbors': range(1, 20)}
@@ -376,3 +399,80 @@ dt = DecisionTreeClassifier()
 scores = cross_validate(dt, train_input, train_target, cv=5, return_train_score=True)
 print(scores['test_score'].mean())  # 평균 테스트 점수 출력
 ```
+
+## **5-3. 트리의 앙상블**
+- 랜덤 포레스트
+> 현시점에서 가장 보편적으로, 성능이 높다고 알려진 알고리즘.
+>
+> 정형 데이터 에서 e.g. 표 구조의 숫자 데이터 (csv) 혹은 엑셀
+
+`정형 데이터와 비정형 데이터`
+- 부트스트랩 샘플링: 데이터 세트에서 중복을 허용하여 데이터를 샘플링하는 방식
+`RandomForestRegressor()`
+
+랜덤포레스트는 결정트리의 앙상블이기 떄문에
+DecisionTreeClassifier 가 제공하는 중요한 매개 변수를 모두 제공함.
+https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html
+
+####  랜덤포레스트 실행
+`RandomForestClassifier`
+
+```python
+from sklearn.model_selection import cross_validate
+from sklearn.ensemble import RandomForestClassifier
+
+rf = RandomForestClassifier(n_jobs=1)
+scores = cross_validate(rf, train_input, train_target, return_train_score=True, n_jobs=1)
+print(scores)
+```
+ cross_validate는 교차 검증을 수행하여 모델의 성능을 평가하는 함수이다.
+ return_train_score=True 옵션을 사용하면 훈련 세트 점수도 함께 제공된다.
+ 결과는 fit_time, score_time, test_score, train_score 등을 포함하는 딕셔너리 형태로 반환된다.
+
+ 💡 이 코드의 목적은 랜덤 포레스트 모델이 훈련 데이터와 검증 데이터에서 얼마나 잘 작동하는지를 확인하는 것!
+{'fit_time': array([0.21650887, 0.21501184, 0.26164246, 0.47878242, 0.29789734]), 'score_time': array([0.0122118 , 0.01175666, 0.01659751, 0.02557254, 0.01661754]), 'test_score': array([0.89230769, 0.88102564, 0.8798768 , 0.86960986, 0.89219713]), 'train_score': array([0.99846035, 0.99820375, 0.99794767, 0.99717804, 0.99820421])}
+
+
+#### 엑스트라 트리
+- 엑스트라 트리는 랜덤 포레스트와 유사하지만, 노드를 분할할 때 최적의 분할을 찾는 것이 아니라 무작위로 분할하는 방식이다.
+```python
+from sklearn.ensemble import ExtraTreesClassifier
+et = ExtraTreesClassifier(n_jobs=1)
+
+scores = cross_validate(et, train_input, train_target, return_train_score=True, n_jobs=1)
+print(scores)
+```
+
+- 그래디언트 부스팅 (Gradient Boosting)
+
+그래디언트 부스팅은 트리의 오차를 보완하는 방법으로 앙상블을 구성하는 기법이다. 과대적합에 강하고 일반적으로 높은 일반화 성능을 기대할 수 있다.
+```python
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.model_selection import cross_validate
+
+gb = GradientBoostingClassifier(n_estimators=500)
+scores = cross_validate(gb, train_input, train_target, return_train_score=True, n_jobs=1)
+print(scores)
+```
+
+# 7. 딥러닝 (Deep Learning) (p.339) 7-1.ipynb
+## 7-1. 인공 신경망 (Artificial Neural Networks) (p.339)
+- 인공 신경망의 기본 개념과 텐서플로를 사용하여 모델을 구축하는 과정.
+
+## 7-2. 심층 신경망 (Deep Neural Networks) (p.367) 7-2.ipynb
+- 은닉층을 추가하여 더 깊은 네트워크를 구성.
+- 시그모이드, 소프트맥스, 렐루 활성화 함수 적용.
+
+# 8. 합성곱 신경망 (CNN) (p.422) 8-1.ipynb
+## 8-1. 합성곱 (Convolution) (p.422)
+- CNN의 핵심 개념으로, 이미지의 지역적 특성을 학습하는 방식이다.
+- 패딩(Padding): 입력 배열의 주위를 가상의 원소로 채워 학습 성능을 향상시킨다.
+
+```
+from tensorflow import keras
+model = keras.Sequential()
+model.add(keras.layers.Conv2D(32, kernel_size=(3,3), activation='relu', input_shape=(28, 28, 1)))
+```
+
+` 참고: 더 자세한 예제 및 코드 구현은 GitHub Repository에서 확인 가능`
+
