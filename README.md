@@ -72,7 +72,8 @@ TIL(Today I Learned)
 - 04_bootstrap  
 
 ## 3월 3주차  
-### Django1  
+### Django
+> `crud_details.md`,  `crud.md`, `django.md`
 - index  
 - hello  
 - lunch  
