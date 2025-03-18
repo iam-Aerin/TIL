@@ -172,8 +172,3 @@ def delete_post(request, post_id):
 
 ---
 
-## **최종 정리**
-- **터미널에서 입력해야 하는 코드** ✅ : Django 설치, 프로젝트 생성, 앱 생성, 마이그레이션, Django Shell 사용 등
-- **파일을 찾아서 직접 입력해야 하는 코드** 📝 : `settings.py`, `urls.py`, `models.py`, `views.py` 등의 코드 작성
-
-
