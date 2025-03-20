@@ -72,3 +72,41 @@ Django 템플릿에서는 `{% url '이름' %}`을 사용하여 `urls.py`에서 �
 | 데이터 처리 | `views.py` | 요청을 처리하고 HTML을 렌더링 |
 | HTML 출력 | `templates/` | 사용자가 보는 웹페이지 |
 
+--- 
+### Django REST Framework과 RESTful API 개념 정리  
+
+---
+
+##  1. RESTful이라는 문제?  
+**RESTful하다**는 것은 **REST(Representational State Transfer)** 원칙을 따르는 API를 의미합니다. REST는 웹에서 데이터를 주고보는 방식으로, 다음과 같은 특징을 가지며 RESTful한 것으로 인정합니다.
+
+### 💡 RESTful API의 태평 원칙  
+1. **자원(Resource) 중심 설계**  
+   - API는 **"무엇을 조작할 것인가?"**를 중심으로 설계  
+   - ✅ `/users/`, `/articles/`, `/products/` 등 명사형 URL 사용  
+
+2. **HTTP 메서드(Method) 사용**  
+   | 동작 | HTTP 메서드 | RESTful URL 예시 |
+   |------|------------|-----------------|
+   | 데이터 조회 (Read) | `GET` | `/articles/` (전체 조회), `/articles/1/` (단각 조회) |
+   | 데이터 생성 (Create) | `POST` | `/articles/` (새 글 생성) |
+   | 데이터 수정 (Update) | `PUT` / `PATCH` | `/articles/1/` (1번 글 수정) |
+   | 데이터 삭제 (Delete) | `DELETE` | `/articles/1/` (1번 글 삭제) |
+
+3. **URL은 동생(X), 명사(O)**  
+   - ❌ `/getUsers`, `/updateUser/1` (비 RESTful)  
+   - ✅ `/users/`, `/users/1/` (RESTful)  
+
+4. **Stateless (상황 저장 X)**  
+   - 서버가 클라이언트의 상황을 기억하지 않음  
+   - 모든 요청은 **도대체적**이며 필요한 데이터를 포함해야 함  
+
+5. **일괄된 응답 형식 (JSON 사용)**  
+   ```json
+   {
+       "id": 1,
+       "title": "Django RESTful API",
+       "content": "RESTful API는 자원 중심으로 설계됩니다."
+   }
+   ```
+
