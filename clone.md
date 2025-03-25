@@ -9,3 +9,7 @@ git clone <git url>
 source venv/Scripts/activate
 
 pip install <django>
+
+git ignore하는 것들이 있다면 추가해주시 
+> e.g. venv <가상환경>
+> migrations 은 안해도되나, (만약 있다면) `migrate` 해야함. 
