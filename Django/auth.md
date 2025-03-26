@@ -6,6 +6,8 @@
 **auth 모듈**을 활용하여 **계정 생성, 로그인, 로그아웃** 기능을 구현하고, **게시물 작성 기능이 포함된 게시판 페이지**를 제작
 
 ---
+![auth 진행 순서](https://sdmntpreastus2.oaiusercontent.com/files/00000000-ca78-51f6-859b-de639a0849da/raw?se=2025-03-26T08%3A09%3A58Z&sp=r&sv=2024-08-04&sr=b&scid=9732c9f9-fa1d-5f34-8e13-d19550a51931&skoid=3f3a9132-9530-48ef-96b7-fee5a811733f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-03-25T21%3A56%3A11Z&ske=2025-03-26T21%3A56%3A11Z&sks=b&skv=2024-08-04&sig=TdKAt3UsI8gECs3JJ/B7w7zdsD8jfT1/Kl24FdHHt%2BA%3D)
+---
 
 ## 1. 기본 프로젝트 및 앱 설정
 
