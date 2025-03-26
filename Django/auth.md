@@ -1,4 +1,5 @@
-# Django Authentication # Django Authentication \u기능 및 게시판 구현
+# Django Authentication 
+## Django Authentication 기능 및 게시판 구현
 
 ## 개요
 
