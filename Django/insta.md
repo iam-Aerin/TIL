@@ -1,4 +1,4 @@
-# 📸 Django ImageField 기반 인스타그램형 게시판 만들기
+# Django ImageField 기반 인스타그램형 게시판 만들기
 
 이 문서는 Django의 `ImageField`를 활용하여 이미지 업로드가 가능한 인스타그램 스타일의 게시판을 만드는 과정을 정리한 TIL입니다. 모델 설계부터 폼 처리, 이미지 저장까지 핵심 개념과 흐름을 정리했습니다.
 
@@ -12,31 +12,61 @@
 - 이미지 파일을 포함한 폼 데이터는 `request.FILES`로 전달됨
 - 템플릿에서는 `{{ object.image.url }}`로 이미지 렌더링 가능
 - 필요한 패키지 정리는 `requirements.txt`로 관리
+- Bootstrap을 사용하면 간편하게 스타일링 가능
 
 ---
 
 ## 🔹 사전 준비
 
 ### 1. Pillow 설치
-
 ```bash
 pip install Pillow
 ```
 
-### 2. settings.py 설정
+### 2. django-resized 설치 (프로필 이미지 리사이징 용도)
+```bash
+pip install django-resized
+```
+> 사용 예시는 아래 'accounts 앱 구성' 항목 참고
 
+### 3. Bootstrap 5 사용
+#### 방법 1: CDN 방식 (간단)
+`base.html`의 `<head>`에 아래 코드 삽입:
+```html
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+```
+
+#### 방법 2: 패키지 설치 및 Django 연동
+```bash
+pip install django-bootstrap5
+```
+그리고 `settings.py`에 앱 추가:
+```python
+INSTALLED_APPS = [
+    ...
+    'django_bootstrap5',
+]
+```
+
+템플릿에서 사용 시:
+```django
+{% load django_bootstrap5 %}
+{% bootstrap_form form %}
+```
+
+---
+
+## 🔹 settings.py 설정 (공통 설정)
 ```python
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-MEDIA_URL = '/image/'
-MEDIA_ROOT = BASE_DIR / 'image'  # 이미지 파일은 프로젝트 루트의 image/ 폴더에 저장됨
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 ```
 
-### 3. URL 설정
-
-#### (1) 프로젝트 루트의 `insta/urls.py`
-
+### URL 설정 (insta/urls.py)
 ```python
 from django.contrib import admin
 from django.urls import path, include
@@ -46,156 +76,128 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('posts/', include('posts.urls')),
+    path('accounts/', include('accounts.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 ```
 
-> 개발 환경에서만 동작하며, `/image/` 경로로 업로드된 미디어 파일 제공
-
 ---
 
-## 🔹 모델 설계
+## 🔹 posts 앱 구성 (이미지 게시판)
 
+### 모델 설계
 ```python
 from django.db import models
+from django.conf import settings
+from django_resized import ResizedImageField
 
 class Post(models.Model):
     content = models.TextField()
-    image = models.ImageField(upload_to='post_images/')  # image/post_images/ 경로에 저장
     created_at = models.DateTimeField(auto_now_add=True)
+    image = ResizedImageField(
+        size=[500, 500],
+        crop=['middle', 'center'],
+        upload_to='image/%Y/%m'
+    )
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 ```
+
+> 게시글(Post)은 작성자(user)와 1:N 관계로 연결되어 있으며, 이미지 크기 조절을 위해 `ResizedImageField`를 사용하고 있습니다.
 
 ---
 
-## 🔹 Form 연결
+## 🔹 accounts 앱 구성 (사용자 정의 User 모델 + 프로필 이미지)
 
+### models.py
 ```python
-from django import forms
-from .models import Post
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django_resized import ResizedImageField
 
-class PostForm(forms.ModelForm):
-    class Meta:
-        model = Post
-        fields = ['content', 'image']
+class User(AbstractUser):
+    profile_image = ResizedImageField(
+        size=[500, 500],
+        crop=['middle', 'center'],
+        upload_to='profile'
+    )
 ```
+> `django-resized` 라이브러리를 사용하여 프로필 이미지를 업로드 시 자동 리사이징 및 크롭 처리합니다.
 
----
-
-## 🔹 View 흐름
-
+### settings.py 설정 (accounts 전용 설정)
 ```python
-from django.shortcuts import render, redirect
-from .forms import PostForm
-from .models import Post
-
-# 게시글 목록
-def index(request):
-    posts = Post.objects.order_by('-created_at')
-    return render(request, 'posts/index.html', {'posts': posts})
-
-# 게시글 작성
-def create_post(request):
-    if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('posts:index')
-    else:
-        form = PostForm()
-    return render(request, 'posts/create.html', {'form': form})
+# 사용자 정의 User 모델 적용
+AUTH_USER_MODEL = 'accounts.User'
 ```
+> `AbstractUser`를 상속한 커스텀 유저 모델을 사용하기 위한 필수 설정입니다. 앱 생성 후 마이그레이션 전에 반드시 지정해야 합니다.
 
 ---
 
-## 🔹 템플릿 구성
+## 🔹 템플릿 구성 예시
 
-### `posts/templates/index.html`
-
+### create.html
 ```html
 {% extends 'base.html' %}
+{% load django_bootstrap5 %}
 
 {% block body %}
-  {% for post in posts %}
-    {% include '_card.html' %}  <!-- 카드 UI 분리 -->
-  {% endfor %}
+  <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <input type="submit" class="btn btn-primary" value="업로드">
+  </form>
 {% endblock %}
 ```
 
-### `posts/templates/_card.html`
+### index.html + 카드 분리
+```html
+{% for post in posts %}
+  {% include '_card.html' %}
+{% endfor %}
+```
 
 ```html
+<!-- _card.html -->
 <div class="card">
   <img src="{{ post.image.url }}" alt="게시글 이미지" width="300">
   <p>{{ post.content }}</p>
 </div>
 ```
 
-### `posts/templates/create.html`
-
-```html
-{% extends 'base.html' %}
-
-{% block body %}
-    <form action="" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit">
-    </form>
-{% endblock %}
-```
-
-> 이미지 파일을 업로드하는 폼에서는 반드시 `enctype="multipart/form-data"` 속성이 포함되어야 합니다.
-> 또한 `{{ form }}`으로 ModelForm과 연동된 필드가 자동 생성됩니다.
-
 ---
 
-## 🔹 템플릿에서 이미지 렌더링
-
+## 🔹 템플릿에서 이미지 출력 예시
 ```html
 <img src="{{ post.image.url }}" alt="게시글 이미지">
+<img src="{{ user.profile_image.url }}" alt="프로필 이미지">
 ```
-
 - 개발 모드에서만 `MEDIA_URL` 설정으로 이미지가 정상 출력됨
 
 ---
 
-## 🔹 파일 업로드 주의사항 정리
+## 🔹 기타 필수 설정 및 관리
 
-- `<form>`에는 `enctype="multipart/form-data"` 필수
-- `request.FILES`로 이미지 데이터를 받을 수 있도록 view 설정 필요
-
----
-
-## 🔹 Git 관리 주의사항 (`.gitignore`)
-
-- 이미지 파일은 보통 Git에 포함시키지 않음
-- 아래 항목을 `.gitignore`에 추가
-
+### .gitignore
 ```gitignore
-image/
+media/
 post_images/
+profile/
 ```
 
----
-
-## 🔹 패키지 관리
-
-- 프로젝트에 설치된 라이브러리를 다른 개발자가 동일하게 설치할 수 있도록
-
+### requirements.txt 저장
 ```bash
-pip freeze >> requirements.txt
+pip freeze > requirements.txt
 ```
 
 ---
 
 ## ✅ 요약
 
-- `ImageField`는 이미지 업로드 필드이며, 업로드 파일은 `request.FILES`로 처리
-- `Pillow` 패키지 설치가 필수
-- `MEDIA_URL`, `MEDIA_ROOT`는 반드시 설정 필요하며, 개발환경에서만 서빙됨
-- 컴포넌트 단위 템플릿(`_card.html`)으로 구성하면 유지보수가 쉬움
-- `.gitignore`로 이미지 파일 폴더는 Git에서 제외
-- `create.html`에서 파일 업로드를 위한 폼 구성 시 `enctype` 필수
-- `pip freeze >> requirements.txt`로 환경 동기화
+- 게시판(posts) 앱과 사용자 정보(accounts) 앱을 분리 구성
+- `ImageField`, `ResizedImageField`를 적절히 활용해 이미지 업로드 및 크기 조절
+- Bootstrap과 `django-bootstrap5`로 빠르게 스타일 적용
+- `MEDIA_URL`, `MEDIA_ROOT` 설정은 공통적으로 사용됨
+- 사용자 정의 유저 모델을 위해 `AUTH_USER_MODEL` 설정 필수
+- 게시글(Post)은 `user` 필드를 통해 작성자와 연결됨
+- `.gitignore`에 이미지 저장 폴더는 반드시 추가
 
 ---
 
