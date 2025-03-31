@@ -84,7 +84,12 @@ TIL(Today I Learned)
 
 ## 3월 4주차  
 ### Django
-> `1-N.md`
+> `1-N.md`, `1-N_pair.md`, `auth.md`
+
+
+## 4월 1주차  
+### Django
+> `insta.md`
 ---
 
 
