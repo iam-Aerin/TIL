@@ -89,7 +89,7 @@ TIL(Today I Learned)
 
 ## 4월 1주차  
 ### Django
-> `insta.md`
+> `insta.md`, `javascript.md`, `sql.md`
 ---
 
 
