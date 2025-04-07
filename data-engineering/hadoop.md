@@ -52,7 +52,7 @@ Hadoop은 위의 **비정형 데이터**를 저장하고 처리하는 데 특화
 
 ---
 > 데이터엔지니어링 수명 주기
-![Data engineering life cycle](![alt text](image.png))
+![alt text](image.png)
 
 ## 5. ETL: Extract - Transform - Load
 
@@ -178,4 +178,22 @@ Hadoop에서 데이터를 처리하는 핵심 프로그래밍 모델
 ```
 > Hadoop은 커다란 한 대의 컴퓨터를 사용하여 데이터를 분산 처리하는 데 사용된다.
 
-![Computer memory size](![alt text](image-1.png))
+![alt text](image-1.png)
+
+![how do hard disk drives work](https://animagraffs.com/wp-content/uploads/how-hard-disk-drives-work-1.png)
+
+---
+### 분산 컴퓨팅: 여러 개의 디스크에 데이터를 병렬로 쓰거나 읽게 하자
+하지만 이는 문제가 발생 할 수 있음
+> 하드웨어 장애
+> 분할된 데이터를 대부분의 분석 작업에서 어떤 식으로든 결합해야 한다. 
+>
+>  `하둡 (Hadoop)`은 이를 해결하기 위해 사용하는 대표적인 분산 컴퓨팅 기술이다: 범용 하드웨어에서 실행되고 오픈 소스이기 때문에 매우 저렴하다. 
+
+`하둡 (Hadoop)`과 `RDBMS`는 어떻게 다른가? 
+```
+맵리듀스라는 방식으로 느린 RDBMS를 보완한다. 
+
+- RDBMS:의 목적은 CRUD를 하는 것! - 여러 번 읽고 쓰기
+- 맵리듀스: CR만을 처리한다. (수정을 고려하지 않음) - 계속 쌓아서 보기 위한 = 한 번 쓰고 여러 번 읽는 것을 목적으로 
+```
