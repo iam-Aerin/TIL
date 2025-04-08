@@ -93,7 +93,7 @@ TIL(Today I Learned)
 
 ## 4월 2주차  
 ### Hadoop (Data engineering)
-> `hadoop.md`,
+> `hadoop.md`, `mapreduce.md`,
 ---
 
 
