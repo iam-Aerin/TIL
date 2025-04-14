@@ -45,36 +45,36 @@ wget https://storage.googleapis.com/chrome-for-testing-public/135.0.7049.84/linu
 https://css-speedrun.netlify.app/
 
 > 첫번째 li 태그 가져오기
-![css speedrun](image-8.png)
+![css speedrun](/assets/image-8.png)
 
 > 특정 클래스 제외하기
-![특정 클래스 제외](image-9.png)
+![특정 클래스 제외](/assets/image-9.png)
 
 > 3, 5, 7번째 li 태그 가져오기
-![3, 5, 7번째 li 태그 가져오기 (수식표현)](image-10.png)
+![3, 5, 7번째 li 태그 가져오기 (수식표현)](/assets/image-10.png)
 
 > 모든 자식 요소 가져오기
-![alt text](image-11.png)
+![alt text](/assets/image-11.png)
 
 > 같은 attribute 값의 요소 가져오기
-![alt text](image-12.png)
+![alt text](/assets/image-12.png)
 
 > 형제 선택자
 
 
 > #one, #two, #five, #six, #nine
-![alt text](image-14.png)
+![alt text](/assets/image-14.png)
 
-![alt text](image-13.png)
+![alt text](/assets/image-13.png)
 
 > 인접 형제 선택자
-![alt text](image-15.png)
+![alt text](/assets/image-15.png)
 
 > div#foo > div.foo
-![alt text](image-16.png)
+![alt text](/assets/image-16.png)
 
 > div선택, 형제 선택, 제외 조건 추가가
-![alt text](image-17.png)
+![alt text](/assets/image-17.png)
 
 ---
 _#내맘대로TIL챌린지 #동아일보 #미디어프론티어 #글로벌소프트웨어캠퍼스 #GSC신촌_
