@@ -93,7 +93,11 @@ TIL(Today I Learned)
 
 ## 4월 2주차  
 ### Hadoop (Data engineering)
-> `hadoop.md`, `mapreduce.md`,
+> `hadoop.md`, `mapreduce.md`, `crod.md`, `crawling.md`, `hdfs.md`
+
+## 4월 3주차  
+### Data engineering/ Crawling
+> `automation.md`, `hbase.md`,
 ---
 
 
