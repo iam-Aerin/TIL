@@ -244,17 +244,17 @@ scan 'messages', { FILTER => "PrefixFilter('room')" }
 ## spark, zeppelin 관련
 ---
 `spark` 에서 `pyspark` 를 실행하기 위해서는 `spark-shell` 을 실행해야 한다.
-![spark-shell](image.png)
+![spark-shell](/assets/spark2.png)
 
-![pyspark](image-1.png) 
+![pyspark](/assets/spark1.png) 
 > global python (3.11.12)버전으로 낮춰서 `pyspark` 를 실행 
 
-![zeppelin/ localhost:8080](image-2.png)
+![zeppelin/ localhost:8080](/assets/zeppelin.png)
 
 https://www.mockaroo.com/
 ### 목업 가상의 데이터 만들기
 
-![alt text](image-3.png)
+![alt text](/assets/mockaroo.png)
 
 ---
 `zeppelin` 에서 `python` 을 실행하면 `pyspark` 가 실행된다.
@@ -284,7 +284,7 @@ mapped_words = words.map(lambda word: (word, 1))
 reduced_words = mapped_words.reduceByKey(lambda a, b: a+b) # 같은 키(단어)인 친구들의 숫자를 합산
 print(reduced_words.collect())
 ```
-![0.RDD - Zeppelin](image-4.png)
+![0.RDD - Zeppelin](/assets/zeppelin2.png)
 
 ```
 %pyspark
@@ -320,5 +320,5 @@ print(count_rdd.collect())
 
 ```
 
-![0.RDD - Zeppelin(1)](image-5.png)
+![0.RDD - Zeppelin(1)](/assets/zeppelin3.png)
 
