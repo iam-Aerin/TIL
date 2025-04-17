@@ -490,3 +490,9 @@ LIMIT → 결과 수 제한
 
 1. **데이터의 분리**: 데이터를 분리하여 각각의 테이블에 저장합니다. 이를 통해 데이터의 관리와 유지가 용이해집니다.
 2. **데이터의 정의**: 데이터의 구조를 정의하여
+
+SELECT
+
+SELECT Origin, Dest, AVG(ActualElapsedTime), AVG(CRSElapsedTime)
+FROM airline
+GroupBy Origin, Dest
