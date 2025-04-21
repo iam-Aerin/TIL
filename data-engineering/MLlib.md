@@ -15,4 +15,4 @@ from pyspark.ml.feature import StringIndexer
 indexer = StringIndexer(inputCols=['Species'], outputCols=['species_idx'])
 df = indexer.fit(df).transform(df)
 ```
-![alt text](image.png)
+![fish_regression](/assets/fish_regression.png)
