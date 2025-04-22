@@ -2,7 +2,7 @@
 *4월 4주차*
 
 ```Data engineering/ ml```
-> `MLlib.md`
+> `MLlib.md`, `recommendation.md`, `kafka.md`
 
 _#내맘대로TIL챌린지 #동아일보 #미디어프론티어 #글로벌소프트웨어캠퍼스 #GSC신촌_
 
@@ -115,3 +115,52 @@ prediction = rf_model.transform(test_data)
 prediction.show()
 
 ```
+
+---
+## Streaming
+-zeppelin `6.streaming`
+
+![spark_streaming](/assets/spark_streaming.png)
+
+---
+
+## Kafka
+- zeppelin `7.kafka`
+
+- kafka 설치
+- kafka 실행
+- kafka 테스트
+
+> kafka는 메시지 큐라는 개념으로, kafka는 메시지를 저장하는 큐이다.
+![kafka_pub_sub_메시지큐](/assets/kafka_pub_sub.webp)
+
+> 무인택배함과 비슷한 개념
+>
+> 누가 받는지 / 수신자는 관심 없음 - 보내는 입장 (publisher) 의 역할만 - 보내기만 / kafka가 저장 => subscriber 입장에서는 보내온 데이터가 있다면 읽을뿐
+>
+>
+> 'topic': kafka가 들어오는 데이터를 계속 쌓는 중간다리의 역할
+>
+
+## kafka 다운로드 
+~위치에서 
+```shell
+wget https://dlcdn.apache.org/kafka/3.9.0/kafka_2.13-3.9.0.tgz
+```
+
+- unzip
+```shell
+tar -zxvf kafka_2.13-3.9.0.tgz
+```
+- zookeeper 실행
+```shell
+bin/zookeeper-server-start.sh -daemon config/zookeeper.properties
+```
+- kafka 실행
+```shell
+bin/kafka-server-start.sh -daemon config/server.properties
+```
+
+
+![alt text](image.png)
+> interpreter (zeppelin 설정을 바꿈) => kafka와 spark를 연결하기 위해서
