@@ -748,7 +748,7 @@ airline.groupBy('Origin').count().orderBy('count', ascending=False).show()
 airline.groupBy('Dest').count().orderBy('count', ascending=False).show()
 ```
 
-## 가장 붐붐비되는 공항 (PySpark)
+## 가장 붐비는 공항 (PySpark)
 
 ```python
 origin = airline.groupBy('Origin').count()
