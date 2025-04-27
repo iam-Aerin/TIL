@@ -2,7 +2,7 @@
 *4월 4주차*
 
 ```Data engineering/ ml```
-> `MLlib.md`, `recommendation.md`, `kafka.md`, `airflow.md`, `2차 평가 준비 (notion: https://www.notion.so/2-sql-orm-1e2d384c40db8087b6c5df582dda5e4b?pvs=4)
+> `MLlib.md`, `recommendation.md`, `kafka.md`, `airflow.md`, `2차 평가 준비 (notion에 정리중)
 
 _#내맘대로TIL챌린지 #동아일보 #미디어프론티어 #글로벌소프트웨어캠퍼스 #GSC신촌_
 
