@@ -88,3 +88,12 @@ Start by creating a simple chart.
 - **Continuous** = 녹색 (Green) → 연속된 값 (Axis 생성)
 - **Discrete** = 파란색 (Blue) → 고정된 값 (Category 생성)
 
+
+
+
+![tableau_sales_Orderdate_Sales](/assets/tableau_sales_Orderdate_Sales.png)
+![tableau_sum](/assets/tableau_sum.png)
+> tableau 측정값 변경시 합계/ 평균 등등 계산이 자동으로 적용됨.
+
+![filtering_orderdate](/assets/filtering_orderdate.png)
+> 원하는 년도를 필터링해서 볼 수 있음
