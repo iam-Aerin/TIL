@@ -97,3 +97,11 @@ Start by creating a simple chart.
 
 ![filtering_orderdate](/assets/filtering_orderdate.png)
 > 원하는 년도를 필터링해서 볼 수 있음
+
+![alt text](image-1.png)
+> South  주들의 Sales를 출력
+![alt text](image-2.png)
+> 수치화 (패널: 통화 표시)
+![alt text](image-3.png)
+> 필터링 조건 [City]
+![profitRatio newColumn](/assets/profiltratio.png)
