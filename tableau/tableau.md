@@ -10,3 +10,5 @@
 > https://public.tableau.com/app/learn/sample-data?_gl=1*lta7eb*_ga*ODI4ODUxMjQwLjE3NDU4MDE1NDc.*_ga_8YLN0SNXVS*MTc0NTgwMTU0Ni4xLjAuMTc0NTgwMTU0Ni4wLjAuMA..
 >
 > `슈퍼스토어 매출	이 가상 회사에서 주요 개선 영역을 식별하는 데 도움이 되는 제품, 매출, 수익 등에 대한 정보가 들어 있습니다.` 슈퍼 스토어 데이터 사용
+
+![tableu worksheet](/assets/tableau_worksheet.png)
