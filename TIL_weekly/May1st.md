@@ -48,3 +48,14 @@ ubuntu@smart:~/damf2/insta$ source venv/bin/activate
 ```shell
 (venv) ubuntu@smart:~/damf2/insta$ pip install -r requirements.txt
 ```
+
+```python 
+pythonmanage.py migrate
+```
+
+```python
+python manage.py runserver
+``` 
+
+- localhost:8000 접속 후 동작 확인
+> insta 페이지 로그인, 게시물 생성 등의 log가 terminal에 찍히는것을 확인할 수 있다.
