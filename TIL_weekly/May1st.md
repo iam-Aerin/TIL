@@ -33,7 +33,7 @@ bin/kibana
 
 - damf2 git repository에서 clone 해오기
 
-cd damf2 위치에서
+`cd damf2` 위치에서
 ```shell
 git clone https://github.com/DAMF2/insta.git
 ```
@@ -57,5 +57,5 @@ pythonmanage.py migrate
 python manage.py runserver
 ``` 
 
-- localhost:8000 접속 후 동작 확인
+- `localhost:8000` 접속 후 동작 확인
 > insta 페이지 로그인, 게시물 생성 등의 log가 terminal에 찍히는것을 확인할 수 있다.
