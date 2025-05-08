@@ -2,7 +2,7 @@
 *4월 5주차*
 
 - elasticSearch
-> `tableu.md`, `elasticSearch.md`
+> `tableu.md`, `elasticSearch.md`, `korean_analysis.md`, `search.md`, `search2.md`
 
 _#내맘대로TIL챌린지 #동아일보 #미디어프론티어 #글로벌소프트웨어캠퍼스 #GSC신촌_
 
@@ -275,4 +275,8 @@ GET http://localhost:9200/user/_search?q=Name:가마돈
 
 ## 검색 API (책 - Chapter 4 (p.148))
 엘라스틱서치는 색인 시점에 Analyzer를 통해 분석된 텀을 Term, 출현빈도, 문서번호와 같이 역색인 구조로 만들어 내부적으로 저장
+
+---
+# `korean_analysis.md`
+---
 
