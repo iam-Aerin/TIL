@@ -125,7 +125,7 @@ LOGGING = {
 
 ---
 # `cohort_retention_analysis.md`
-# 코호트 리텐션 분석
+
 # 코호트 리텐션 분석
 `https://www.kaggle.com/datasets/mkechinov/ecommerce-events-history-in-electronics-store/data` kaggle data로 cohort retention 분석
 & Funnel 퍼널 분석
