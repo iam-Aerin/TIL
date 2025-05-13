@@ -34,6 +34,7 @@ _글로벌소프트웨어캠퍼스와 동아일보가 함께 진행하는 챌린
 
 ---
 `scrape_tweets_api.py`
+# FAIL
 ## X API 사용해서 트윗 분석하기
 
 - Colab에서 실습
@@ -78,7 +79,7 @@ print(f" 총 {len(df)}개의 트윗이 goods_tweets.csv에 저장되었습니다
 
 => snscrap 자체가 X (Twitter 가 X로 전환 되면서) 보안 측면에서 막힌듯보임
 
-## FAIL 2
+## FAIL 2: `twitter_cookies.json`, `scrape_twitter_cookies.py`
 - selenium으로 스크랩 자동화하려고했는데
 1. 로그인된 x 페이지에 접근하기 실패
 > json (twitter_cookie.json)으로 x에 로그인된 cookie 정보를 저장해서 selenium 실행시 성공
