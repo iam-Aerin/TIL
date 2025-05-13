@@ -34,8 +34,8 @@ _글로벌소프트웨어캠퍼스와 동아일보가 함께 진행하는 챌린
 
 ---
 `scrape_tweets_api.py`
-# FAIL: X API 사용용
-## X API 사용해서 트윗 분석하기
+## FAIL: X API 사용
+### X API 사용해서 트윗 분석하기
 
 - Colab에서 실습
 - 무료 계정 (X API)라서 한번 요처아고 15-30분 걸림림
@@ -72,7 +72,7 @@ df.to_csv("goods_tweets.csv", index=False, encoding="utf-8-sig")
 print(f" 총 {len(df)}개의 트윗이 goods_tweets.csv에 저장되었습니다.")
 
 ```
-## FAIL: snscrape 패키지 사용용
+## FAIL: snscrape 패키지 사용
 - 위와 같은 코드로 snscrape 패키지를 이용해서 트윗을 수집하려고 했으나 `FAIL`
 => python 3.13 버전, 3.11 버전과 충돌이 일어나 python version 을 3.10로 다운그레이드 했으나 
 `실패`
