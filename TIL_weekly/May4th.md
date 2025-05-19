@@ -377,17 +377,73 @@ Elasticsearch에서 `multi_match` 쿼리의 목적은?
 
 ---
 
-### 문제 22  
-아래 쿼리 중 오타를 자동으로 허용하는 쿼리는?
 
-```json
-{
-  "query": {
-    "match": {
-      "title": {
-        "query": "stat",
-        "fuzziness": 1
-      }
-    }
-  }
-}
+###문제 22**  
+다음 중 오타 허용 검색을 가능하게 하는 쿼리는?  
+A. term 쿼리  
+✅ B. match 쿼리 + fuzziness  
+C. wildcard 쿼리  
+D. exists 쿼리  
+**정답: B**
+
+---
+
+### 문제 23**  
+다음 중 filter 조건에 적합한 것은?  
+A. 사용자 검색 로그  
+✅ B. 가격이 1000원 이상인 경우  
+C. 전체 텍스트 검색  
+D. 키워드 추천  
+**정답: B**
+
+---
+
+### 문제 24**  
+Elasticsearch에서 인덱스에 들어 있는 필드명과 타입 구조를 확인할 수 있는 API는?  
+A. _search  
+✅ B. _mapping  
+C. _analyze  
+D. _source  
+**정답: B**
+
+---
+
+### 문제 25**  
+Elasticsearch에서 날짜/숫자 범위를 설정할 때 사용하는 쿼리는?  
+A. match  
+B. term  
+✅ C. range  
+D. wildcard  
+**정답: C**
+
+---
+
+### 문제 26**  
+아래 중 `must`, `should`, `must_not`, `filter`를 조합해서 사용하는 쿼리는?  
+A. multi_match  
+B. match  
+✅ C. bool  
+D. exists  
+**정답: C**
+
+---
+
+### 문제 27**  
+Elasticsearch에서 `_source` 필드를 지정하는 이유는?  
+A. 전체 문서를 삭제하기 위해  
+B. 필드 존재 여부를 체크하기 위해  
+✅ C. 특정 필드만 결과에 포함시키기 위해  
+D. 색인 성능을 높이기 위해  
+**정답: C**
+
+---
+
+### 문제 28**  
+다음 중 `operator: and` 옵션을 match 쿼리에서 사용하면?  
+✅ A. 검색어의 모든 단어가 포함된 문서만 검색된다  
+B. 문서에 단 하나라도 단어가 있으면 검색된다  
+C. 정렬이 적용된다  
+D. 분석기가 비활성화된다  
+**정답: A**
+
+---
