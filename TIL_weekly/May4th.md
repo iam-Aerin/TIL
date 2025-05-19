@@ -447,3 +447,140 @@ D. 분석기가 비활성화된다
 **정답: A**
 
 ---
+
+
+# Elasticsearch DevTools 실습 정리
+
+##  배운 주제 요약
+
+- 인덱스 생성 및 매핑 설정 (`PUT /index`)
+- 별칭(alias) 등록 및 활용
+- 매핑(Mapping) 기반 데이터 타입 지정
+- 기본 검색 vs 집계 쿼리 (`match`, `term`, `bool`, `aggs`)
+- nori 기반 한글 형태소 분석기 설정
+- 사용자 정의 분석기 및 필터 구성
+- 하이라이트 및 자동완성(suggest, completion) 기능 실습
+
+---
+
+## 🗂 인덱스 생성 및 데이터 매핑
+
+```http
+PUT /movie
+```
+기본 인덱스 생성
+
+```http
+PUT /movie/_doc/1
+{
+  "movieNm": "아이",
+  "prdtYear": 2017
+}
+```
+문서 삽입 → 기본 매핑은 자동 생성
+
+```http
+DELETE /movie
+```
+인덱스 삭제 후 명시적 매핑 생성
+
+```http
+PUT /movie
+{
+  "mappings": {
+    "properties": {
+      "movieNm": { "type": "text" },
+      "prdtYear": { "type": "integer" }
+    }
+  }
+}
+```
+
+```http
+PUT /movie_mapping/_mapping
+{
+  "properties": {
+    "multiMovieYn": {
+      "type": "keyword"
+    }
+  }
+}
+```
+매핑 수정으로 keyword 타입 필드 추가
+
+---
+
+## 🔍 검색 쿼리 실습
+
+### 기본 검색
+```http
+GET /movie/_search
+```
+
+### 조건 검색: term / bool / filter
+```http
+GET /movie/_search
+{
+  "query": {
+    "term": {"prdtYear": 2018}
+  }
+}
+```
+
+```http
+GET /movie/_search
+{
+  "query": {
+    "bool": {
+      "filter": {
+        "term": { "prdtYear": "2018" }
+      }
+    }
+  }
+}
+```
+
+### 페이징
+```http
+GET /movie/_search
+{
+  "from": 1,
+  "size": 20,
+  "query": {
+    "term": { "prdtYear": 2018 }
+  }
+}
+```
+
+---
+
+## 📊 집계(aggregation) 실습
+
+### alias 설정 후 로그 데이터 활용
+```http
+POST _aliases
+{
+  "actions": [
+    {
+      "add": {
+        "index": "kibana_sample_data_logs",
+        "alias": "logs"
+      }
+    }
+  ]
+}
+```
+
+### terms 집계 예시
+```http
+GET /logs/_search?size=0
+{
+  "aggs": {
+    "region_count": {
+      "terms": { "field": "ip" }
+    }
+  }
+}
+```
+
+### sum, value_co_
