@@ -236,7 +236,7 @@ Elasticsearch에서 `multi_match` 쿼리는 어떤 경우에 사용하는가?
 - C. 여러 조건을 조합할 때  
 - D. 여러 키워드를 필터링할 때
 
-# 📚 Elasticsearch 객관식 예상문제 추가 모음
+# Elasticsearch 객관식 예상문제 추가 모음
 
 > ✅ 지필 시험 대비용 (객관식 중심)
 
