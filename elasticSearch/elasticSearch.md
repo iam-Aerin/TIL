@@ -272,3 +272,118 @@ GET /logs/_mapping
 - `logs`는 실제 인덱스 이름이거나 별칭(alias)일 수 있습니다.  
 - 매핑 정보를 확인하지 않고 쿼리를 작성하면, `text` 타입 필드에 대해 정렬/집계를 시도하다 오류가 발생할 수 있습니다.  
 - 따라서 검색 전에 `GET /_mapping`으로 필드 타입을 확인하는 것은 매우 중요합니다.
+
+## 🧠 Elasticsearch 객관식 예상문제 모음
+
+> 시험 유형: 객관식 10문제  
+> 출제 범위: 1장(Restful API, 역색인) ~ 3장(데이터 모델링, 분석기)
+
+### 문제 1  
+Elasticsearch에서 "텍스트를 단어 단위로 쪼개는 기능"을 수행하는 구성요소는?
+
+- A. Filter  
+- B. Mapping  
+- C. Index  
+- ✅ D. Analyzer
+
+> **해설**: Analyzer는 텍스트를 토큰화하고 불용어 제거 등의 처리를 한다.
+
+---
+
+### 문제 2  
+Elasticsearch에서 역색인 구조의 장점으로 적절하지 않은 것은?
+
+- A. 빠른 검색 속도  
+- B. 텍스트 기반 전문 검색 최적화  
+- ✅ C. 정형 데이터 처리에 특화됨  
+- D. 단어 단위로 검색 가능
+
+> **해설**: 역색인은 텍스트 분석에 최적화되어 있고 정형 데이터 처리는 RDBMS가 더 적합하다.
+
+---
+
+### 문제 3  
+Elasticsearch에서 데이터 타입 중 텍스트 분석에 사용되는 타입은?
+
+- A. integer  
+- B. keyword  
+- ✅ C. text  
+- D. boolean
+
+> **해설**: `text` 타입은 Analyzer가 적용되어 전문 검색용으로 사용된다.
+
+---
+
+### 문제 4  
+다음 중 Elasticsearch에서 정확한 값을 검색할 때 사용하는 타입은?
+
+- A. text  
+- ✅ B. keyword  
+- C. float  
+- D. geo_point
+
+> **해설**: keyword는 토큰화되지 않고 정렬, 집계 등에 사용된다.
+
+---
+
+### 문제 5  
+Elasticsearch에서 데이터를 색인할 때 구조를 정의하는 것은?
+
+- A. query  
+- ✅ B. mapping  
+- C. index  
+- D. field
+
+> **해설**: Mapping은 필드명과 데이터 타입을 정의한다.
+
+---
+
+### 문제 6  
+Elasticsearch 쿼리에서 `must_not` 조건에 해당하는 동작은?
+
+- A. 포함되는 문서 필터링  
+- ✅ B. 제외할 문서 지정  
+- C. 정렬 순서 변경  
+- D. 필드 존재 확인
+
+---
+
+### 문제 7  
+다음 중 오타 허용 검색(fuzziness)이 적용된 쿼리는?
+
+- A. term query  
+- ✅ B. match query with `fuzziness`  
+- C. range query  
+- D. wildcard query
+
+---
+
+### 문제 8  
+Elasticsearch에서 `range` 쿼리로 할 수 없는 것은?
+
+- A. 숫자 범위 조회  
+- B. 날짜 범위 조회  
+- ✅ C. 문자열 포함 여부 확인  
+- D. 값 이상 이하 조건 지정
+
+---
+
+### 문제 9  
+`_source` 옵션의 역할은?
+
+- A. 검색 필드 설정  
+- B. 정렬 기준 지정  
+- ✅ C. 결과 출력 필드를 제한  
+- D. 분석기 지정
+
+---
+
+### 문제 10  
+Elasticsearch에서 `multi_match` 쿼리는 어떤 경우에 사용하는가?
+
+- A. 여러 인덱스를 동시에 검색할 때  
+- ✅ B. 여러 필드를 동시에 검색할 때  
+- C. 여러 조건을 조합할 때  
+- D. 여러 키워드를 필터링할 때
+
+---
