@@ -463,6 +463,20 @@ D. 분석기가 비활성화된다
 
 ---
 
+# TIL: Elasticsearch DevTools 실습 정리
+
+## 📌 오늘 배운 주제 요약
+
+- 인덱스 생성 및 매핑 설정 (`PUT /index`)
+- 별칭(alias) 등록 및 활용
+- 매핑(Mapping) 기반 데이터 타입 지정
+- 기본 검색 vs 집계 쿼리 (`match`, `term`, `bool`, `aggs`)
+- nori 기반 한글 형태소 분석기 설정
+- 사용자 정의 분석기 및 필터 구성
+- 하이라이트 및 자동완성(suggest, completion) 기능 실습
+
+---
+
 ## 🗂 인덱스 생성 및 데이터 매핑
 
 ```http
@@ -584,3 +598,92 @@ GET /logs/_search?size=0
 ```
 
 ### sum, value_co_
+---
+
+## 🎂 Django에서 아이돌 생일 주간 캘린더 구현하기
+
+### ✅ 목표
+- 아이돌 멤버 생일 목록(`member.csv`)을 활용해 Django 기반 웹사이트의 `home.html`에 **주간 캘린더 UI**를 추가
+- 사용자는 메인화면에서 이번 주 생일인 아이돌 멤버를 **시각적으로 확인**하고, 전체 달력(`/calendar`) 뷰로 이동 가능
+
+---
+
+### 1. `bday_calendar` 앱 생성 및 세팅
+- `python manage.py startapp bday_calendar`
+- `settings.py`에 `'bday_calendar',` 등록
+- `oddoke/urls.py`에 다음 라인 추가:
+```python
+path('calendar/', include('bday_calendar.urls', namespace='bday_calendar'))
+
+## 2. 생일 API 뷰 생성 (`views.py`)
+def birthday_events_api(request):
+    weekly_only = request.GET.get('weekly') == 'true'
+    today = timezone.now().date()
+    start_week = today - timedelta(days=today.weekday())
+    end_week = start_week + timedelta(days=6)
+
+    events = []
+    for m in Member.objects.exclude(member_bday__isnull=True).exclude(member_bday=''):
+        try:
+            month, day = map(int, m.member_bday.split('-'))
+            bday = date(today.year, month, day)
+        except:
+            continue
+
+        if weekly_only and not (start_week <= bday <= end_week):
+            continue
+
+        artists = ', '.join([a.display_name for a in m.artist_name.all()])
+        events.append({
+            "title": f"{m.member_name} ({artists})",
+            "start": bday.strftime('%Y-%m-%d')
+        })
+
+    return JsonResponse(events, safe=False)
+
+## 3. 주간 캘린더 UI 삽입 (home.html)
+
+<!-- FullCalendar CDN -->
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js"></script>
+
+<!-- 캘린더 섹션 -->
+<section class="mt-16 mb-20 max-w-6xl mx-auto px-4">
+  <div class="flex justify-between mb-4">
+    <h3 class="text-lg font-bold text-pink-500">🎂 이번 주 생일 캘린더</h3>
+    <a href="{% url 'bday_calendar:calendar' %}" class="text-sm text-blue-600 hover:underline">전체 보기 →</a>
+  </div>
+  <div id="weekly-calendar" class="bg-white rounded shadow p-4"></div>
+</section>
+
+<!-- 주간 캘린더 스크립트 -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const calendarEl = document.getElementById('weekly-calendar');
+    if (calendarEl) {
+      const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        height: 'auto',
+        headerToolbar: false,
+        allDaySlot: false,
+        slotMinTime: "00:00:00",
+        slotMaxTime: "23:59:59",
+        events: '/calendar/api/?weekly=true',
+        locale: 'ko',
+      });
+      calendar.render();
+    }
+  });
+</script>
+
+```
+FullCalendar는 주간 일정을 시각적으로 표현하기에 매우 적합하다.
+
+생일 데이터가 MM-DD 포맷일 때도 datetime(year, MM, DD)로 가공하면 년도 유무와 상관없이 연산 가능.
+
+Django API 응답을 ?weekly=true 조건으로 필터링할 수 있어 다양한 날짜 기반 뷰에 재사용 가능하다.
+
+다음으로는 찜한 아티스트 기준 필터링이나 생일 당일 강조 기능을 추가해볼 수 있다.
+
+
+```
