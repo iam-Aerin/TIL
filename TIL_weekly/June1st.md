@@ -58,7 +58,9 @@ from ultralytics import YOLO
 model = YOLO('yolov8n.pt')  # pretrained or custom-trained on 포카 dataset
 results = model('multi_card.jpg')
 results.crop(save=True)  # crop된 포카들 자동 저장
+```
 
+---
 -> 업로드 UI 흐름 설계: 
 1. 판매자가 포카 묶음 이미지 업로드
 2. 백엔드에서 자동 검출 및 분할
