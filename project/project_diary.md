@@ -203,7 +203,166 @@ results.crop(save=True)  # crop된 포카들 자동 저장
 - 추후 AI 모델 추가 시: 아티스트/멤버 인식 → 자동 태깅까지 확장 가능
 
 ---
+# Django에서 '좋아요' (찜하기) 기능 구현
 
+오늘은 Django 웹 애플리케이션에서 '찜하기' (좋아요) 기능을 구현하고 문제를 해결한 과정을 정리
+
+## 1. 데이터 모델 수정
+'찜하기' 기능을 구현하기 위해, `BdayCafe` 모델과 연관된 `CafeFavorite` 모델을 생성. 이 모델은 사용자가 찜한 카페를 저장하고 관리하는 역할
+
+```python
+class CafeFavorite(models.Model):
+    """카페 즐겨찾기"""
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    cafe = models.ForeignKey(BdayCafe, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        unique_together = ('user', 'cafe')  # 같은 카페에 대해 한 번만 찜할 수 있도록 설정
+```
+
+## 2. 찜하기 토글 API 뷰
+찜하기 버튼을 클릭할 때마다, 사용자가 해당 카페를 찜 목록에 추가하거나 제거하는 API가 동작합니다. 이를 위해 toggle_favorite_ajax라는 뷰를 추가했습니다.
+
+API 동작:
+찜 추가: 사용자가 카페를 찜하면 CafeFavorite 모델에 새로운 항목을 추가합니다.
+
+찜 제거: 이미 찜한 상태에서 다시 찜하기 버튼을 클릭하면 해당 항목을 삭제합니다.
+
+```
+@login_required
+@require_POST
+@csrf_protect
+def toggle_favorite_ajax(request, cafe_id):
+    """찜하기 토글 API"""
+    try:
+        cafe = get_object_or_404(BdayCafe, id=cafe_id, status='approved')
+        
+        # 찜하기 토글
+        favorite, created = FavoriteCafe.objects.get_or_create(user=request.user, cafe=cafe)
+        
+        if not created:  # 이미 찜한 상태면 제거
+            favorite.delete()
+            is_favorited = False
+            message = "찜 목록에서 제거했어요!"
+        else:  # 찜 추가
+            is_favorited = True
+            message = "찜 목록에 추가했어요!"
+        
+        # 찜 목록 업데이트
+        my_favorite_cafes = BdayCafe.objects.filter(
+            favoritecafes__user=request.user,
+            status='approved'
+        ).order_by('-favoritecafes__created_at')
+        
+        favorites_html = render_to_string(
+            'ddoksang/components/_favorites_section.html',
+            {'my_favorite_cafes': my_favorite_cafes, 'user': request.user},
+            request=request
+        )
+        
+        response_data = {
+            'success': True,
+            'is_favorited': is_favorited,
+            'message': message,
+            'favorites_html': favorites_html,
+        }
+        
+        return JsonResponse(response_data)
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)
+
+```
+
+## 3. Frontend 연동 (JavaScript)
+찜하기 버튼을 클릭하면 AJAX를 통해 서버와 통신을 하여 찜하기 상태를 갱신하고, 페이지 내에서 실시간으로 반영됩니다.
+
+`favorite.js`
+
+```javascript
+class FavoriteManager {
+    constructor() {
+        this.isSubmitting = false;
+        this.favoriteStates = new Map();
+        this.callbacks = [];
+        this.init();
+    }
+
+    init() {
+        // 이벤트 리스너 등록
+        document.addEventListener('click', (e) => {
+            const favoriteBtn = e.target.closest('[data-favorite-btn]');
+            if (!favoriteBtn || this.isSubmitting) return;
+
+            const cafeId = favoriteBtn.dataset.cafeId;
+            if (cafeId) {
+                this.toggleFavorite(cafeId);
+            }
+        });
+    }
+
+    async toggleFavorite(cafeId) {
+        if (this.isSubmitting) return;
+        this.isSubmitting = true;
+
+        const csrfToken = this.getCSRFToken();
+        const response = await fetch(`/ddoksang/cafe/${cafeId}/toggle-favorite/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrfToken,
+            },
+        });
+
+        const data = await response.json();
+        if (data.success) {
+            this.updateAllButtons(cafeId, data.is_favorited);
+            this.executeCallbacks(cafeId, data.is_favorited);
+            this.showToast(data.message, 'success');
+        } else {
+            this.showToast(data.error, 'error');
+        }
+
+        this.isSubmitting = false;
+    }
+
+    updateAllButtons(cafeId, isFavorited) {
+        // 버튼 상태 업데이트 (하트 아이콘, 색상 변경)
+        const buttons = document.querySelectorAll(`[data-favorite-btn][data-cafe-id="${cafeId}"]`);
+        buttons.forEach(button => {
+            button.innerHTML = isFavorited ? '♥' : '♡';
+            button.style.color = isFavorited ? '#ef4444' : '#6b7280';
+        });
+    }
+
+    showToast(message, type) {
+        // 사용자에게 토스트 메시지 표시
+        alert(message); // 간단한 메시지로 대체
+    }
+
+    getCSRFToken() {
+        return document.querySelector('[name=csrfmiddlewaretoken]').value;
+    }
+}
+
+// 초기화
+window.favoriteManager = new FavoriteManager();
+```
+
+> 중요 포인트:
+AJAX 요청: JavaScript에서 찜하기 버튼 클릭 시, AJAX 요청을 통해 서버로 데이터를 전송하고 응답을 받아 UI를 실시간으로 갱신합니다.
+
+서버 응답: 서버는 찜 상태 변경 결과를 JSON 형식으로 반환하고, 이를 바탕으로 UI를 업데이트합니다.
+
+## 4. 관련 URL 설정
+Django의 urls.py 파일에서 toggle_favorite 뷰를 처리하는 URL을 설정
+
+```python
+# 찜하기 토글 URL
+path('cafe/<int:cafe_id>/toggle-favorite/', views.toggle_favorite_ajax, name='toggle_favorite'),
+
+```
+=> Django의 ForeignKey와 related_name을 활용해 사용자가 찜한 카페를 관리하고, JavaScript와 AJAX를 통해 사용자에게 실시간으로 업데이트된 찜 상태를 반영할 수 있음.
+---
 ## 다음 주 추진 목표에 반영할 TODO (체크리스트 업데이트)
 
 ### 기능 구조 및 UX
